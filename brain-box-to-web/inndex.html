@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Box to Web</title>
+    <meta name="description" content="Get a professional website for your Salon, Spa, or Gaming Team. Fast, stylish, and starting at just 1500 BDT.">
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-flex">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.svg" alt="Brain Box to Web" style="height: 32px; width: auto;">
+                <span>Brain Box to Web</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="services.html">Services</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="btn btn-primary mobile-cta" style="display: none;">Let's Talk</a>
+            </nav>
+
+            <a href="contact.html" class="btn btn-primary">Let's Talk</a>
+
+            <div class="mobile-toggle">
+                <i class="ph ph-list"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center;">
+                <div class="reveal">
+                    <span class="highlight" style="letter-spacing: 1.5px; font-size: 0.85rem; text-transform: uppercase;">For Salons & Gamers</span>
+                    <h1 style="margin: 15px 0;">Get A Website For <br>Your <span class="highlight">Business</span> or <span class="highlight">Team</span></h1>
+                    <p style="color: var(--text-muted); font-size: 1rem; margin-bottom: 30px; max-width: 450px;">
+                        We build stylish websites for Salons, Spas, and Gaming Squads. Get more customers or show off your team starting at just 1500 to 2500 BDT.
+                    </p>
+                    <div style="display: flex; gap: 12px;">
+                        <a href="contact.html" class="btn btn-primary">Let's talk <i class="ph ph-arrow-right"></i></a>
+                        <a href="services.html" class="btn">See Services</a>
+                    </div>
+                </div>
+                <div class="reveal" style="display: flex; justify-content: center;">
+                    <img src="assets/images/mainrobot.svg" alt="Brain Box to Web AI" style="max-width: 100%; height: auto; filter: drop-shadow(0 0 40px rgba(99, 102, 241, 0.3)); animation: float 6s ease-in-out infinite;">
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="about-split">
+                    <div class="reveal">
+                        <span class="highlight">WHO WE ARE</span>
+                        <h2 style="margin: 15px 0;">We Build Websites <br>That Work</h2>
+                        <p style="color: var(--text-muted);">
+                            You run a salon or a gaming clan. You don't have time for complex tech. We make it simple: <strong>We build your site, you grow your brand.</strong>
+                        </p>
+                        <a href="about.html" class="btn">More About Us <i class="ph ph-arrow-right"></i></a>
+                    </div>
+                    <div class="reveal" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="glass-card" style="text-align: center;">
+                            <h3 class="highlight" style="font-size: 2rem;">1+</h3>
+                            <p style="font-size: 0.8rem;">Years Active</p>
+                        </div>
+                        <div class="glass-card" style="text-align: center;">
+                            <h3 class="highlight" style="font-size: 2rem;">5+</h3>
+                            <p style="font-size: 0.8rem;">Sites Built</p>
+                        </div>
+                        <div class="glass-card" style="text-align: center;">
+                            <h3 class="highlight" style="font-size: 2rem;">100%</h3>
+                            <p style="font-size: 0.8rem;">Happy Clients</p>
+                        </div>
+                        <div class="glass-card" style="text-align: center;">
+                            <h3 class="highlight" style="font-size: 2rem;">Fast</h3>
+                            <p style="font-size: 0.8rem;">Delivery Time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="reveal" style="text-align: center; margin-bottom: 40px;">
+                    <h2>Pick Your Type</h2>
+                    <p style="color: var(--text-muted);">Click a card to see a demo website.</p>
+                </div>
+                
+                <div class="industry-grid reveal">
+                    <div class="industry-card" onclick="openDemo('demos/saloon/index.html')" 
+                         style="background-image: url('assets/images/salon-site-demo-ss.png');">
+                        <i class="ph ph-scissors"></i>
+                        <span class="industry-title">Salon & Spa</span>
+                        <div class="demo-badge"><i class="ph ph-eye"></i> Live Preview</div>
+                    </div>
+
+                    <div class="industry-card" onclick="openDemo('demos/gaming/index.html')"
+                         style="background-image: url('assets/images/gaming-site-demo-ss.png');">
+                        <i class="ph ph-game-controller"></i>
+                        <span class="industry-title">Gaming Squad</span>
+                        <div class="demo-badge"><i class="ph ph-eye"></i> Live Preview</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing">
+            <div class="container">
+                <h2 class="reveal" style="text-align: center; margin-bottom: 50px;">Simple Pricing</h2>
+                <div class="reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    
+                    <div class="glass-card" style="border-color: var(--accent-primary);">
+                        <div style="position: absolute; top: 20px; right: 20px; background: var(--accent-primary); padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">Most Popular</div>
+                        <h3>Starter</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Best for Salons & Spa.</p>
+                        <div style="font-size: 2.5rem; font-weight: 700; margin: 20px 0;">৳1,500</div>
+                        <ul style="list-style: none; color: var(--text-muted); margin-bottom: 30px; line-height: 2;">
+                            <li><i class="ph ph-check-circle" style="color: var(--accent-glow);"></i> Basic SEO</li>
+                            <li><i class="ph ph-check-circle" style="color: var(--accent-glow);"></i> Fast Loading</li>
+                            <li><i class="ph ph-check-circle" style="color: var(--accent-glow);"></i> Mobile Friendly</li>
+                            <li><i class="ph ph-check-circle" style="color: var(--accent-glow);"></i> Contact Buttons</li>
+                            <li><i class="ph ph-check-circle" style="color: var(--accent-glow);"></i> Social Links</li>
+                            <li><i class="ph ph-check-circle" style="color: var(--accent-glow);"></i> 1 Time Review</li>
+
+                        </ul>
+                        <a href="contact.html?plan=Starter" class="btn btn-primary" style="width: 100%; justify-content: center;">Select Starter</a>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>Standard</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">For Gaming Clans.</p>
+                        <div style="font-size: 2.5rem; font-weight: 700; margin: 20px 0;">৳2,500</div>
+                        <ul style="list-style: none; color: var(--text-muted); margin-bottom: 30px; line-height: 2;">
+                            <li><i class="ph ph-check-circle" style="color: var(--accent-glow);"></i> Up to 5 Pages</li>
+                            <li><i class="ph ph-check-circle" style="color: var(--accent-glow);"></i> Get Form responses</li>
+                            <li><i class="ph ph-check-circle" style="color: var(--accent-glow);"></i> Mobile Friendly</li>
+                            <li><i class="ph ph-check-circle" style="color: var(--accent-glow);"></i> Booking / Team List</li>
+                            <li><i class="ph ph-check-circle" style="color: var(--accent-glow);"></i> Fast Loading</li>
+                            <li><i class="ph ph-check-circle" style="color: var(--accent-glow);"></i> Social Links</li>
+                            <li><i class="ph ph-check-circle" style="color: var(--accent-glow);"></i> 3 Times Review</li>
+                        </ul>
+                        <a href="contact.html?plan=Standard" class="btn" style="width: 100%; justify-content: center;">Select Standard</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="payment-section reveal">
+            <div class="container">
+                <div class="payment-label">WE ACCEPT :</div>
+                <div class="payment-flex">
+                    <div class="payment-item"><i class="ph ph-bank"></i> Bank Transfer</div>
+                    <div class="payment-item"><i class="ph ph-credit-card"></i> Visa / Mastercard</div>
+                    <div class="payment-item"><i class="ph ph-device-mobile"></i> Bkash / Nagad / Rocket</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2 class="reveal" style="text-align: center; margin-bottom: 50px;">What We Do</h2>
+                <div class="reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    <div class="glass-card">
+                        <i class="ph ph-desktop" style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 15px;"></i>
+                        <h3>One-Page Sites</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Simple sites to show your price list or team members.</p>
+                    </div>
+                    <div class="glass-card">
+                        <i class="ph ph-device-mobile" style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 15px;"></i>
+                        <h3>Works on Mobile</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Your site will look perfect on any phone or tablet.</p>
+                    </div>
+                    <div class="glass-card">
+                        <i class="ph ph-briefcase" style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 15px;"></i>
+                        <h3>Portfolios</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Show off your haircuts or your best gaming clips.</p>
+                    </div>
+                    <div class="glass-card">
+                        <i class="ph ph-trend-up" style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 15px;"></i>
+                        <h3>Google Search</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">We help people find your Salon or Clan on Google.</p>
+                    </div>
+                    <div class="glass-card">
+                        <i class="ph ph-shopping-cart" style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 15px;"></i>
+                        <h3>Online Store</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Sell beauty products or gaming merch online.</p>
+                    </div>
+                    <div class="glass-card">
+                        <i class="ph ph-paint-brush" style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 15px;"></i>
+                        <h3>Logo Design</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">We can design a cool logo for your brand.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2 class="reveal" style="text-align: center;">How We Work</h2>
+                <div class="steps-grid reveal">
+                    <div class="glass-card" style="text-align: center;">
+                        <div class="step-number">01</div>
+                        <h3>Chat</h3>
+                        <p style="color: var(--text-muted);">We talk about what you need for your Salon or Team.</p>
+                    </div>
+                    <div class="glass-card" style="text-align: center;">
+                        <div class="step-number">02</div>
+                        <h3>Plan</h3>
+                        <p style="color: var(--text-muted);">We design a look that fits your style perfectly.</p>
+                    </div>
+                    <div class="glass-card" style="text-align: center;">
+                        <div class="step-number">03</div>
+                        <h3>Build</h3>
+                        <p style="color: var(--text-muted);">We build the website so it is fast and secure.</p>
+                    </div>
+                    <div class="glass-card" style="text-align: center;">
+                        <div class="step-number">04</div>
+                        <h3>Go Live</h3>
+                        <p style="color: var(--text-muted);">Your website goes online for the world to see.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <div class="glass-card reveal" style="max-width: 900px; margin: 0 auto; padding: 40px;">
+                    <div class="contact-grid-mobile" style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px;">
+                        <div>
+                            <h2 style="margin-bottom: 20px;">Contact Us</h2>
+                            <p style="color: var(--text-muted); margin-bottom: 20px;">Ready to grow? Send us a message or call us.</p>
+                            <div style="margin-bottom: 10px;">
+                                <strong style="display: block; color: white;">Email Us</strong>
+                                <span style="color: var(--text-muted);">contact@brainboxtoweb.tech</span>
+                            </div>
+                            <div>
+                                <strong style="display: block; color: white;">WhatsApp</strong>
+                                <span style="color: var(--text-muted);">+8801401402235</span>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <a href="https://facebook.com/brainboxtoweb" target="_blank" style="text-decoration: none; color: white; display: flex; align-items: center; gap: 10px;">
+                                    <i class="ph ph-facebook-logo" style="font-size: 1.5rem; color: var(--accent-primary);"></i>
+                                    <span>Follow on Facebook</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <form id="contact-form">
+                            <input type="hidden" name="access_key" value="1ac80b7b-a74a-4a90-926e-103f2ccc6e87">
+                            <input type="hidden" name="subject" value="New Submission from Home Page">
+
+                            <div id="form-fields">
+                                <div style="margin-bottom: 20px;">
+                                    <input type="text" name="name" placeholder="Your Name" required 
+                                           style="width: 100%; padding: 15px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: white; border-radius: 8px; outline: none;">
+                                </div>
+
+                                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                    <input type="tel" name="mobile" placeholder="Phone Number" required 
+                                           style="width: 100%; padding: 15px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: white; border-radius: 8px; outline: none;">
+                                    <input type="email" name="email" placeholder="Email (Optional)" 
+                                           style="width: 100%; padding: 15px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: white; border-radius: 8px; outline: none;">
+                                </div>
+
+                                <div style="margin-bottom: 20px;">
+                                    <textarea name="message" rows="4" placeholder="Tell us about your Salon or Gaming Team..." required 
+                                              style="width: 100%; padding: 15px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: white; border-radius: 8px; outline: none; resize: vertical;"></textarea>
+                                </div>
+                            </div>
+
+                            <div id="success-message" class="success-message">
+                                <div class="success-content">
+                                    <div class="success-icon">
+                                        <i class="ph ph-check"></i>
+                                    </div>
+                                    <div class="success-text">
+                                        <h4>Proposal Received</h4>
+                                        <p>We have received your details. Our team will contact you shortly.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="trusted-section reveal">
+            <div class="container">
+                <p class="trusted-label">Trusted By Industry Leaders</p>
+                <div class="logo-slider">
+                    <div class="logo-track">
+                        <i class="ph ph-atom"></i> <i class="ph ph-planet"></i> <i class="ph ph-lightning"></i> <i class="ph ph-infinity"></i>
+                        <i class="ph ph-cube"></i> <i class="ph ph-hexagon"></i> <i class="ph ph-triangle"></i> <i class="ph ph-diamonds-four"></i>
+                        <i class="ph ph-atom"></i> <i class="ph ph-planet"></i> <i class="ph ph-lightning"></i> <i class="ph ph-infinity"></i>
+                        <i class="ph ph-cube"></i> <i class="ph ph-hexagon"></i> <i class="ph ph-triangle"></i> <i class="ph ph-diamonds-four"></i>
+                        <i class="ph ph-atom"></i> <i class="ph ph-planet"></i> <i class="ph ph-lightning"></i> <i class="ph ph-infinity"></i>
+                        <i class="ph ph-cube"></i> <i class="ph ph-hexagon"></i> <i class="ph ph-triangle"></i> <i class="ph ph-diamonds-four"></i>
+                        <i class="ph ph-atom"></i> <i class="ph ph-planet"></i> <i class="ph ph-lightning"></i> <i class="ph ph-infinity"></i>
+                        <i class="ph ph-cube"></i> <i class="ph ph-hexagon"></i> <i class="ph ph-triangle"></i> <i class="ph ph-diamonds-four"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col-logo">
+                    <div class="logo" style="margin-bottom: 20px;">
+                        <img src="assets/images/logo.svg" alt="Brain Box to Web" style="height: 40px;">
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; max-width: 300px;">
+                        Brain Box to Web builds fast websites for Salons and Gaming Squads. Simple, stylish, and effective.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 20px; color: white;">Company</h4>
+                    <ul class="footer-links" style="list-style: none;">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="pricing.html">Pricing Plans</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 20px; color: white;">Services</h4>
+                    <ul class="footer-links" style="list-style: none;">
+                        <li><a href="services.html">One-Page Sites</a></li>
+                        <li><a href="services.html">Online Stores</a></li>
+                        <li><a href="services.html">Google SEO</a></li>
+                        <li><a href="services.html">Logo Design</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 20px; color: white;">Get In Touch</h4>
+                    <ul class="footer-links" style="list-style: none;">
+                        <li><a href="mailto:contact@brainboxtoweb.tech">contact@brainboxtoweb.tech</a></li>
+                        <li><a href="tel:+8801401402235">+8801401402235</a></li>
+                        <li style="color: var(--text-muted);">Chittagong, Bangladesh</li>
+                    </ul>
+                    <div style="margin-top: 30px;">
+                        <h4 style="font-size: 1rem; color: white; margin-bottom: 15px;">Follow Us</h4>
+                        <div class="social-icons">
+                            <a href="https://facebook.com/brainboxtoweb" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2025 Brain Box to Web. All rights reserved.</div>
+                <div class="footer-legal">
+                    <a href="#" style="color: inherit; text-decoration: none;">Privacy Policy</a>
+                    <a href="#" style="color: inherit; text-decoration: none;">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="demo-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="logo">
+                    <img src="assets/images/logo.svg" alt="Brain Box to Web" style="height: 24px;">
+                    <span>Live Preview</span>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <a href="pricing.html" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.8rem;">Get This Site</a>
+                    <button class="close-btn" onclick="closeDemo()"><i class="ph ph-x"></i></button>
+                </div>
+            </div>
+            <iframe id="demo-frame" src=""></iframe>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

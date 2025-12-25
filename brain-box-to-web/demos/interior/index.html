@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Havenly | Interior Design Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* -----------------------------------------------------------
+           1. HAVENLY BRAND VARIABLES
+        ----------------------------------------------------------- */
+        :root {
+            /* Backgrounds */
+            --bg-body: #fcfaf8; /* Very subtle warm white */
+            --bg-beige: #f4f0ed; /* The classic Havenly header bg */
+            --bg-terracotta: #a85d3b; /* The "Happiness Guarantee" color */
+            --bg-tan: #dcbda5; /* The Pricing Section background */
+            
+            /* Text */
+            --text-dark: #2d2d2d;
+            --text-body: #4a4a4a;
+            
+            /* Accents */
+            --btn-color: #c58f5e; /* Gold/Bronze Button */
+            --btn-hover: #b07d4e;
+            
+            /* Fonts */
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Lato', sans-serif;
+            
+            --nav-height: 70px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+        }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3, h4 { font-family: var(--font-serif); color: var(--text-dark); font-weight: 400; }
+        
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #2d2d2d;
+        }
+        
+        p { color: var(--text-body); font-size: 1rem; font-weight: 300; }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* BUTTONS */
+        .btn-gold {
+            display: inline-block;
+            background-color: var(--btn-color);
+            color: #fff;
+            padding: 1rem 2.5rem;
+            font-family: var(--font-sans);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            border-radius: 50px; /* Rounded pill shape like Havenly */
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(197, 143, 94, 0.3);
+        }
+        .btn-gold:hover { background-color: var(--btn-hover); transform: translateY(-2px); }
+
+        .btn-outline {
+            border: 1px solid var(--text-dark);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* -----------------------------------------------------------
+           2. NAVIGATION
+        ----------------------------------------------------------- */
+        nav {
+            position: sticky; top: 0; width: 100%; height: var(--nav-height);
+            background: var(--bg-body);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; z-index: 1000;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .logo { font-family: var(--font-sans); font-size: 1.5rem; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; }
+        
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
+        .bar { width: 25px; height: 1px; background: #000; }
+
+        /* -----------------------------------------------------------
+           3. HERO SECTION (Image with text overlay)
+        ----------------------------------------------------------- */
+        #hero {
+            position: relative;
+            height: 85vh;
+            background: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* The "White Box" overlay logic? No, Havenly mobile uses text directly on image usually, 
+           but your screenshot shows white text on image. Let's do the "Mobile Screenshot" style. */
+        .hero-overlay {
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .hero-overlay h1 { color: #fff; font-weight: 400; }
+        .hero-overlay h4 { font-family: var(--font-sans); letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 1rem; color: #fff; text-transform: uppercase; }
+
+        /* -----------------------------------------------------------
+           4. HOW IT WORKS (01, 02, 03)
+        ----------------------------------------------------------- */
+        section { padding: 5rem 0; }
+        
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-label { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: #666; font-weight: 700; margin-bottom: 1rem; display: block; }
+        
+        .process-step {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 5rem auto;
+        }
+        .step-num {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .process-step h3 { font-size: 1.8rem; margin-bottom: 1rem; line-height: 1.3; }
+        .process-step p { margin-bottom: 2rem; padding: 0 1rem; }
+        .process-img { width: 100%; border-radius: 8px; margin-top: 1rem; }
+
+        /* -----------------------------------------------------------
+           5. PORTFOLIO (Before/After)
+        ----------------------------------------------------------- */
+        .portfolio-toggle {
+            display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem;
+        }
+        .toggle-btn {
+            background: #fff; border: 1px solid #ddd; padding: 0.8rem 1.5rem;
+            border-radius: 50px; font-family: var(--font-sans); font-weight: 700;
+            display: flex; align-items: center; gap: 10px; cursor: pointer;
+        }
+        .toggle-btn.active { background: #fdf6f0; border-color: var(--btn-color); color: var(--btn-color); }
+        
+        .ba-container { position: relative; overflow: hidden; border-radius: 8px; }
+        .ba-image { width: 100%; display: block; }
+
+        /* -----------------------------------------------------------
+           6. PRICING (Beige Section)
+        ----------------------------------------------------------- */
+        #pricing {
+            background-color: var(--bg-tan); /* That beige color from screenshot */
+            padding: 5rem 1.5rem;
+            text-align: center;
+        }
+        
+        .pricing-card {
+            background: #fff;
+            padding: 3rem 2rem;
+            max-width: 400px;
+            margin: 2rem auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        .badge-corner {
+            position: absolute; top: 0; right: 0;
+            background: #e8eebf; /* Light green/yellow from screenshot */
+            color: #2d4f45;
+            padding: 1.5rem;
+            border-radius: 0 0 0 50%;
+            font-weight: 700; line-height: 1.1;
+            width: 100px; height: 100px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        
+        .price-old { text-decoration: line-through; color: #aaa; font-size: 1.5rem; font-family: var(--font-serif); }
+        .price-new { font-size: 2.5rem; color: #5ca6c4; font-family: var(--font-serif); } /* The blue price color */
+
+        /* -----------------------------------------------------------
+           7. HAPPINESS GUARANTEE (Terracotta Section)
+        ----------------------------------------------------------- */
+        #guarantee {
+            background-color: var(--bg-terracotta);
+            color: #fff;
+            text-align: center;
+            padding: 4rem 1.5rem;
+        }
+        #guarantee h3 { color: #fff; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; font-family: var(--font-sans); font-weight: 700; margin-bottom: 1.5rem; }
+        #guarantee p { color: rgba(255,255,255,0.9); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+
+        /* -----------------------------------------------------------
+           8. FOOTER (Accordion)
+        ----------------------------------------------------------- */
+        footer { background: var(--bg-body); padding: 2rem 1.5rem; }
+        
+        .accordion-item { border-bottom: 1px solid #ddd; }
+        .accordion-header {
+            padding: 1.5rem 0;
+            display: flex; justify-content: space-between; align-items: center;
+            font-family: var(--font-serif); font-size: 1.2rem; color: #3b5998; /* Blueish tint from screenshot */
+            cursor: pointer;
+        }
+        .accordion-header span { color: #d4af37; font-size: 1.5rem; } /* Plus sign gold */
+        
+        .accordion-content { display: none; padding-bottom: 1.5rem; }
+        .accordion-content a { display: block; padding: 0.5rem 0; color: #666; font-size: 0.95rem; }
+
+        /* -----------------------------------------------------------
+           RESPONSIVE TWEAKS
+        ----------------------------------------------------------- */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            h1 { font-size: 2.8rem; }
+            .pricing-card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Havenly</div>
+        <ul class="nav-links">
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+        </ul>
+        <div class="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-overlay">
+            <h4>The #1 Interior Design Service</h4>
+            <h1>Designing your dream home just became a reality.</h1>
+            <br>
+            <button class="btn-gold">Get Started</button>
+        </div>
+    </section>
+
+    <section id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">How Havenly Works</span>
+            </div>
+
+            <div class="process-step">
+                <span class="step-num">01</span>
+                <h3>Match with one of our<br>talented designers.</h3>
+                <p>Take a style quiz to help us get to know you a little bit better, then choose your interior designer from our personalized recommendations.</p>
+                <img src="https://images.unsplash.com/photo-1616137466211-f939a420be84?q=80&w=800&auto=format&fit=crop" class="process-img" alt="Step 1">
+            </div>
+
+            <div class="process-step">
+                <span class="step-num">02</span>
+                <h3>Partner with your designer<br>to create a home you love.</h3>
+                <p>Great design doesn't happen alone. Let your designer guide you to solutions that meet your functional needs and style.</p>
+                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop" class="process-img" alt="Step 2">
+            </div>
+
+            <div class="process-step">
+                <span class="step-num">03</span>
+                <h3>Shop exclusive deals, and<br>bring your design home.</h3>
+                <p>Access the best prices on your favorite home brands, get exclusive discounts, and shop everything you need.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" style="background: #fdfcfb;">
+        <div class="container">
+            <h2>What's the best that could happen?</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Explore real client before & afters.</p>
+            
+            <div class="portfolio-toggle">
+                <button class="toggle-btn active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/></svg>
+                    Living Room
+                </button>
+                <button class="toggle-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v18"/><path d="M3 8h18"/><path d="M3 16h18"/></svg>
+                    Dining Room
+                </button>
+            </div>
+            
+            <div class="ba-container">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1000&auto=format&fit=crop" class="ba-image" alt="Before After">
+                <div style="text-align: center; padding: 1rem; color: #888; font-size: 0.8rem; letter-spacing: 1px;">DRAG TO SEE TRANSFORMATION</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="section-header">
+            <span class="section-label" style="color: #6d4c41;">Our Design Packages</span>
+            <h2 style="color: #4e342e; margin-top: 1rem;">Tailored to your space,<br>style, and budget.</h2>
+        </div>
+
+        <div class="pricing-card">
+            <div class="badge-corner">
+                <span>50%</span>
+                <span>OFF</span>
+            </div>
+            <div style="text-align: left;">
+                <span class="section-label">The Gift of Design</span>
+                <h3 style="font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 1rem;">Online<br>Design</h3>
+                <p style="margin-bottom: 2rem;">Partner online with one of our talented designers to bring your dream home to life - any time and any place.</p>
+                
+                <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 0.5rem;">
+                    <span class="price-old">$199</span>
+                    <span class="price-new">$99</span>
+                </div>
+                <div style="color: #aaa; margin-bottom: 2rem;">per room</div>
+                
+                <button class="btn-gold" style="width: 100%;">Get Started Online</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="guarantee">
+        <h3>Our Happiness Guarantee</h3>
+        <p>We know designing your home can be an intimidating experience. If you're not happy with your design for whatever reason, let us know, and we'll make it right.</p>
+    </section>
+
+    <footer>
+        <div class="container">
+            
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Company <span>+</span>
+                </div>
+                <div class="accordion-content">
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Reviews</a>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Explore <span>+</span>
+                </div>
+                <div class="accordion-content">
+                    <a href="#">Style Quiz</a>
+                    <a href="#">Gift Cards</a>
+                    <a href="#">Promotions</a>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    Contact <span>+</span>
+                </div>
+                <div class="accordion-content">
+                    <a href="#">Help Center</a>
+                    <a href="#">Email Us</a>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; color: #999; font-size: 0.8rem; line-height: 1.6;">
+                © 2025 Havenly Inc., All Rights Reserved.<br>
+                Privacy Policy | Terms of Service
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAccordion(element) {
+            const content = element.nextElementSibling;
+            const icon = element.querySelector('span');
+            
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                icon.innerHTML = "+";
+            } else {
+                content.style.display = "block";
+                icon.innerHTML = "-";
+            }
+        }
+    </script>
+</body>
+</html>

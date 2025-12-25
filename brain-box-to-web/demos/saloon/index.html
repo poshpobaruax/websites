@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BB2W | Men's Grooming</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#1C1210',
+                            darker: '#160d0b',
+                            brown: '#2C2422',
+                            accentStart: '#FF7E5F',
+                            accentEnd: '#FEB47B',
+                            textMain: '#F5F5F0',
+                            textMuted: '#D6D3D1', 
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Manrope"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-brand': 'linear-gradient(135deg, #FF7E5F 0%, #FEB47B 100%)',
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(255, 126, 95, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .reveal { @apply opacity-0 translate-y-8 transition-all duration-1000 ease-out; }
+            .reveal.active { @apply opacity-100 translate-y-0; }
+            
+            /* Buttons */
+            .btn-primary {
+                @apply bg-gradient-brand text-brand-darker font-bold px-4 py-2.5 text-sm md:px-6 md:py-3 md:text-base rounded-full transition-all duration-300 hover:shadow-glow hover:-translate-y-1 flex items-center justify-center gap-2;
+            }
+            
+            .btn-secondary {
+                @apply border border-brand-textMuted/30 text-brand-textMain px-4 py-2.5 text-sm md:px-6 md:py-3 md:text-base rounded-full transition-all duration-300 hover:bg-white/5 hover:border-brand-textMuted flex items-center justify-center gap-2;
+            }
+
+            .tab-active {
+                @apply bg-brand-accentStart text-brand-darker border-transparent;
+            }
+            
+            .accordion-content {
+                @apply grid transition-all duration-300 ease-in-out;
+                grid-template-rows: 0fr;
+            }
+            .accordion-content.open {
+                grid-template-rows: 1fr;
+            }
+            .accordion-inner {
+                @apply overflow-hidden;
+            }
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-brand-textMain font-sans antialiased overflow-x-hidden pb-24">
+
+    <!-- Sticky Nav -->
+    <nav class="fixed w-full z-50 py-4 px-6 bg-[#1C1210]/95 backdrop-blur-md border-b border-white/5 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full border border-brand-accentStart flex items-center justify-center text-brand-accentStart">
+                    <i data-lucide="scissors" class="w-4 h-4"></i>
+                </div>
+                <span class="font-serif text-xl font-bold">BB2W Salon</span>
+            </a>
+            
+            <div class="hidden md:flex gap-6 text-sm uppercase tracking-widest text-brand-textMuted">
+                <a href="#services" class="hover:text-brand-accentStart">Prices</a>
+                <a href="#gallery" class="hover:text-brand-accentStart">Gallery</a>
+                <a href="#location" class="hover:text-brand-accentStart">Location</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <!-- Desktop Button Wrapper (CRITICAL: 'hidden md:block' ensures it vanishes on mobile) -->
+                <div class="hidden md:block">
+                    <button onclick="sendToWhatsApp()" class="btn-primary !py-2 !px-4 text-xs">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                        <span>Book WhatsApp</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Scroll Button (Hidden initially, slides in on scroll) -->
+                <button id="mobile-book-btn" onclick="sendToWhatsApp()" class="hidden md:hidden bg-gradient-brand text-brand-darker p-2 rounded-full shadow-glow animate-bounce">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                </button>
+
+                <!-- Burger Menu -->
+                <button class="md:hidden text-brand-textMain p-1" onclick="toggleMobileMenu()">
+                    <i data-lucide="menu" class="w-7 h-7"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-brand-dark/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 flex flex-col pt-24 px-8 gap-6 md:hidden">
+        <button class="absolute top-6 right-6" onclick="toggleMobileMenu()"><i data-lucide="x" class="w-8 h-8"></i></button>
+        <a href="#hero" onclick="toggleMobileMenu()" class="text-2xl font-serif">Home</a>
+        <a href="#services" onclick="toggleMobileMenu()" class="text-2xl font-serif">Services & Prices</a>
+        <a href="#gallery" onclick="toggleMobileMenu()" class="text-2xl font-serif">Gallery</a>
+        <a href="#reviews" onclick="toggleMobileMenu()" class="text-2xl font-serif">Reviews</a>
+        <a href="#team" onclick="toggleMobileMenu()" class="text-2xl font-serif">Team</a>
+        <a href="#location" onclick="toggleMobileMenu()" class="text-2xl font-serif">Location & Hours</a>
+        <a href="#faq" onclick="toggleMobileMenu()" class="text-2xl font-serif">FAQ & Policies</a>
+    </div>
+
+    <!-- Floating WhatsApp Button (Bottom Right) -->
+    <a href="javascript:sendToWhatsApp()" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-glow hover:-translate-y-1 transition-transform flex items-center gap-2 font-bold animate-bounce md:hidden">
+        <i data-lucide="message-circle" class="w-6 h-6"></i>
+    </a>
+    <a href="javascript:sendToWhatsApp()" class="hidden md:flex fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-glow hover:-translate-y-1 transition-transform items-center gap-2 font-bold animate-bounce">
+        <i data-lucide="message-circle" class="w-6 h-6"></i>
+        <span>Book on WhatsApp</span>
+    </a>
+
+    <!-- 1. HERO SECTION -->
+    <header id="hero" class="relative pt-32 pb-16 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6 reveal active">
+                <h1 class="font-serif text-4xl md:text-6xl leading-tight">
+                    Men's Haircut & <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-brand italic">Beard Grooming</span>
+                </h1>
+                
+                <!-- Micro Facts -->
+                <div class="flex flex-wrap gap-4 text-sm font-medium text-brand-textMuted">
+                    <span class="flex items-center gap-1"><i data-lucide="star" class="w-4 h-4 text-brand-accentStart fill-current"></i> 4.9 Rating (500+)</span>
+                    <span class="flex items-center gap-1"><i data-lucide="clock" class="w-4 h-4 text-brand-accentStart"></i> Open until 9PM</span>
+                    <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-4 h-4 text-brand-accentStart"></i> Beverly Hills</span>
+                </div>
+
+                <!-- Hero Buttons -->
+                <div class="flex gap-3 pt-4">
+                    <button onclick="sendToWhatsApp()" class="btn-primary flex-1 md:flex-none md:w-auto">Book WhatsApp</button>
+                    <a href="#services" class="btn-secondary flex-1 md:flex-none md:w-auto">View Prices</a>
+                </div>
+            </div>
+            
+            <!-- Hero Image -->
+            <div class="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden reveal">
+                <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" class="w-full h-full object-cover" alt="Salon Interior">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. QUICK INFO (Scrollable Cards) -->
+    <section class="py-12 px-6 overflow-x-hidden">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-xs font-bold tracking-widest uppercase text-brand-textMuted mb-6">Highlights</h3>
+            <div class="flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide">
+                
+                <!-- Card 1: Popular -->
+                <div class="min-w-[280px] bg-brand-brown/30 p-6 rounded-xl border border-white/5 snap-center">
+                    <div class="flex items-center gap-3 mb-4 text-brand-accentStart">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                        <h4 class="font-serif text-lg text-white">Popular Now</h4>
+                    </div>
+                    <ul class="space-y-3 text-sm text-brand-textMuted">
+                        <li class="flex justify-between"><span>Signature Cut</span> <span class="text-white">$85</span></li>
+                        <li class="flex justify-between"><span>Beard Sculpt</span> <span class="text-white">$45</span></li>
+                        <li class="flex justify-between"><span>The Royal Package</span> <span class="text-white">$120</span></li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Why Us -->
+                <div class="min-w-[280px] bg-brand-brown/30 p-6 rounded-xl border border-white/5 snap-center">
+                    <div class="flex items-center gap-3 mb-4 text-brand-accentStart">
+                        <i data-lucide="shield-check" class="w-5 h-5"></i>
+                        <h4 class="font-serif text-lg text-white">Why Choose Us</h4>
+                    </div>
+                    <ul class="space-y-3 text-sm text-brand-textMuted">
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accentStart"></i> Hospital-grade hygiene</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accentStart"></i> 10+ years exp. barbers</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accentStart"></i> Premium organic products</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3: Booking Steps -->
+                <div class="min-w-[280px] bg-brand-brown/30 p-6 rounded-xl border border-white/5 snap-center">
+                    <div class="flex items-center gap-3 mb-4 text-brand-accentStart">
+                        <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                        <h4 class="font-serif text-lg text-white">How to Book</h4>
+                    </div>
+                    <ol class="space-y-3 text-sm text-brand-textMuted list-decimal list-inside">
+                        <li>Pick your service below</li>
+                        <li>Click "Book WhatsApp"</li>
+                        <li>Send pre-filled message</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SERVICES & PRICING (Layered Info) -->
+    <section id="services" class="py-16 px-6 bg-[#221A18]">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-10 reveal">
+                <h2 class="font-serif text-3xl md:text-4xl text-white">Services Menu</h2>
+                <p class="text-brand-textMuted text-sm mt-2">Select a category to view detailed pricing.</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex justify-center gap-2 mb-8 flex-wrap">
+                <button onclick="switchTab('hair')" class="tab-btn px-4 py-2 rounded-full border border-white/10 text-sm hover:bg-white/5 transition-colors tab-active" data-tab="hair">Hair</button>
+                <button onclick="switchTab('beard')" class="tab-btn px-4 py-2 rounded-full border border-white/10 text-sm hover:bg-white/5 transition-colors" data-tab="beard">Beard</button>
+                <button onclick="switchTab('spa')" class="tab-btn px-4 py-2 rounded-full border border-white/10 text-sm hover:bg-white/5 transition-colors" data-tab="spa">Spa & Facial</button>
+            </div>
+
+            <!-- Content: Hair -->
+            <div id="hair-content" class="service-content space-y-4">
+                <!-- Item 1 -->
+                <div class="bg-brand-dark/50 p-4 rounded-lg border border-white/5 reveal">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-serif text-lg text-white">Signature Haircut</h3>
+                            <span class="text-xs text-brand-textMuted">45 mins • $85</span>
+                        </div>
+                        <button onclick="sendToWhatsApp('Signature Haircut')" class="bg-white/10 hover:bg-brand-accentStart hover:text-brand-darker px-3 py-1 rounded text-xs transition-colors">Book</button>
+                    </div>
+                    <!-- Accordion Trigger -->
+                    <button onclick="toggleAccordion('hair1')" class="text-xs text-brand-accentStart flex items-center gap-1 mt-2">
+                        Details & Who it's for <i data-lucide="chevron-down" class="w-3 h-3"></i>
+                    </button>
+                    <!-- Accordion Content -->
+                    <div id="hair1" class="accordion-content">
+                        <div class="accordion-inner pt-3 text-sm text-brand-textMuted border-t border-white/5 mt-2">
+                            <p class="mb-2"><strong>Includes:</strong> Consultation, wash, precision cut, hot towel styling.</p>
+                            <p><strong>Best for:</strong> Anyone wanting a sharp, professional look maintained every 3-4 weeks.</p>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Item 2 -->
+                 <div class="bg-brand-dark/50 p-4 rounded-lg border border-white/5 reveal">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-serif text-lg text-white">Buzz Cut & Fade</h3>
+                            <span class="text-xs text-brand-textMuted">30 mins • $65</span>
+                        </div>
+                        <button onclick="sendToWhatsApp('Buzz Cut')" class="bg-white/10 hover:bg-brand-accentStart hover:text-brand-darker px-3 py-1 rounded text-xs transition-colors">Book</button>
+                    </div>
+                    <button onclick="toggleAccordion('hair2')" class="text-xs text-brand-accentStart flex items-center gap-1 mt-2">
+                        Details & Who it's for <i data-lucide="chevron-down" class="w-3 h-3"></i>
+                    </button>
+                    <div id="hair2" class="accordion-content">
+                        <div class="accordion-inner pt-3 text-sm text-brand-textMuted border-t border-white/5 mt-2">
+                            <p class="mb-2"><strong>Includes:</strong> Clipper work, skin fade, line up.</p>
+                            <p><strong>Best for:</strong> Low maintenance lifestyle.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content: Beard (Hidden default) -->
+            <div id="beard-content" class="service-content space-y-4 hidden">
+                <div class="bg-brand-dark/50 p-4 rounded-lg border border-white/5">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-serif text-lg text-white">Beard Sculpting</h3>
+                            <span class="text-xs text-brand-textMuted">30 mins • $45</span>
+                        </div>
+                        <button onclick="sendToWhatsApp('Beard Sculpt')" class="bg-white/10 hover:bg-brand-accentStart hover:text-brand-darker px-3 py-1 rounded text-xs transition-colors">Book</button>
+                    </div>
+                    <p class="text-sm text-brand-textMuted mt-2">Razor lineup, trim, and oil treatment.</p>
+                </div>
+            </div>
+
+            <!-- Content: Spa (Hidden default) -->
+            <div id="spa-content" class="service-content space-y-4 hidden">
+                <div class="bg-brand-dark/50 p-4 rounded-lg border border-white/5">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-serif text-lg text-white">Express Facial</h3>
+                            <span class="text-xs text-brand-textMuted">30 mins • $60</span>
+                        </div>
+                        <button onclick="sendToWhatsApp('Express Facial')" class="bg-white/10 hover:bg-brand-accentStart hover:text-brand-darker px-3 py-1 rounded text-xs transition-colors">Book</button>
+                    </div>
+                    <p class="text-sm text-brand-textMuted mt-2">Cleanse, scrub, mask, and moisturizer.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. GALLERY (Functional) -->
+    <section id="gallery" class="py-16 px-6 bg-brand-dark">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-8 reveal">
+                <h2 class="font-serif text-3xl text-white">Style Gallery</h2>
+                <!-- Filters -->
+                <div class="flex gap-2 mt-4 md:mt-0">
+                    <button onclick="filterGallery('all')" class="text-xs uppercase tracking-widest text-brand-accentStart">All</button>
+                    <button onclick="filterGallery('cut')" class="text-xs uppercase tracking-widest text-brand-textMuted hover:text-white">Cuts</button>
+                    <button onclick="filterGallery('beard')" class="text-xs uppercase tracking-widest text-brand-textMuted hover:text-white">Beards</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500&q=80" class="gallery-item w-full h-48 object-cover rounded-lg" data-category="cut" alt="Cut">
+                <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=500&q=80" class="gallery-item w-full h-48 object-cover rounded-lg" data-category="cut" alt="Cut">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80" class="gallery-item w-full h-48 object-cover rounded-lg" data-category="beard" alt="Beard">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80" class="gallery-item w-full h-48 object-cover rounded-lg" data-category="beard" alt="Beard">
+            </div>
+            
+            <div class="text-center mt-8">
+                <button onclick="sendToWhatsApp('I want a style from your gallery')" class="text-brand-accentStart text-sm hover:underline">See something you like? Send it to us on WhatsApp</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. TEAM & HYGIENE -->
+    <section id="team" class="py-16 px-6 bg-[#221A18] border-y border-white/5">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
+            <!-- Team -->
+            <div class="reveal">
+                <h2 class="font-serif text-3xl text-white mb-6">The Team</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 bg-brand-dark p-4 rounded-xl border border-white/5">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop" class="w-16 h-16 rounded-full object-cover">
+                        <div>
+                            <h4 class="text-white font-serif">Adrian Cole</h4>
+                            <p class="text-xs text-brand-textMuted">Specialty: Precision Fades • 8 Years Exp.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 bg-brand-dark p-4 rounded-xl border border-white/5">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" class="w-16 h-16 rounded-full object-cover">
+                        <div>
+                            <h4 class="text-white font-serif">Sarah Jenkins</h4>
+                            <p class="text-xs text-brand-textMuted">Specialty: Long Hair & Styling • 6 Years Exp.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hygiene & Products -->
+            <div class="reveal delay-100">
+                <h2 class="font-serif text-3xl text-white mb-6">Hygiene Standard</h2>
+                <ul class="space-y-3 text-brand-textMuted text-sm mb-8">
+                    <li class="flex gap-3"><i data-lucide="shield" class="text-brand-accentStart w-5 h-5"></i> Tools sterilized in medical-grade autoclave.</li>
+                    <li class="flex gap-3"><i data-lucide="shield" class="text-brand-accentStart w-5 h-5"></i> Fresh cape and disposable blade for every client.</li>
+                    <li class="flex gap-3"><i data-lucide="shield" class="text-brand-accentStart w-5 h-5"></i> Chairs sanitized between appointments.</li>
+                </ul>
+                <h3 class="text-white font-serif mb-2">Brands We Use</h3>
+                <p class="text-xs text-brand-textMuted">Dyson Professional • Reuzel Pomades • Baxter of California</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. MAP SECTION -->
+    <section id="map-section" class="w-full h-[450px] relative border-y border-white/5 filter grayscale hover:grayscale-0 transition-all duration-700 ease-in-out group">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26430.39268670498!2d-118.42308670860505!3d34.07727188734005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bc04d6d147cf%3A0x2948c3d879435d8a!2sBeverly%20Hills%2C%20CA!5e0!3m2!1sen!2sus!4v1709500000000!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        
+        <!-- Floating Info Card -->
+        <div class="absolute bottom-6 left-6 md:bottom-10 md:left-10 bg-brand-dark/90 backdrop-blur-md p-6 rounded-xl border border-white/10 shadow-2xl max-w-xs transform transition-transform duration-500 group-hover:-translate-y-2 pointer-events-none md:pointer-events-auto">
+            <h3 class="font-serif text-xl text-white mb-2">Find Us</h3>
+            <p class="text-sm text-brand-textMuted mb-4">Located in the heart of Beverly Hills, offering exclusive valet parking for our clients.</p>
+            <a href="https://maps.google.com" target="_blank" class="text-xs text-brand-accentStart uppercase tracking-widest hover:text-white transition-colors flex items-center gap-2 pointer-events-auto">
+                Get Directions <i data-lucide="arrow-right" class="w-3 h-3"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- 7. FAQ & POLICIES (Accordions) -->
+    <section id="faq" class="py-16 px-6 bg-brand-dark">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="font-serif text-3xl text-white mb-8 text-center">FAQ & Policies</h2>
+            <div class="space-y-2">
+                <!-- FAQ 1 -->
+                <div class="border border-white/10 rounded-lg overflow-hidden">
+                    <button onclick="toggleAccordion('faq1')" class="w-full flex justify-between items-center p-4 bg-brand-brown/20 text-white text-sm hover:bg-brand-brown/40">
+                        <span>Do you accept walk-ins?</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div id="faq1" class="accordion-content">
+                        <div class="accordion-inner p-4 text-brand-textMuted text-sm bg-brand-dark">
+                            We prioritize appointments but accept walk-ins if a barber is free. Weekends are usually fully booked.
+                        </div>
+                    </div>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="border border-white/10 rounded-lg overflow-hidden">
+                    <button onclick="toggleAccordion('faq2')" class="w-full flex justify-between items-center p-4 bg-brand-brown/20 text-white text-sm hover:bg-brand-brown/40">
+                        <span>Late Policy</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div id="faq2" class="accordion-content">
+                        <div class="accordion-inner p-4 text-brand-textMuted text-sm bg-brand-dark">
+                            If you are more than 15 minutes late, we may need to reschedule your appointment or shorten the service.
+                        </div>
+                    </div>
+                </div>
+                 <!-- FAQ 3 -->
+                 <div class="border border-white/10 rounded-lg overflow-hidden">
+                    <button onclick="toggleAccordion('faq3')" class="w-full flex justify-between items-center p-4 bg-brand-brown/20 text-white text-sm hover:bg-brand-brown/40">
+                        <span>Parking Information</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div id="faq3" class="accordion-content">
+                        <div class="accordion-inner p-4 text-brand-textMuted text-sm bg-brand-dark">
+                            Free valet parking is available at the entrance. Street parking is also free on Sundays.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. LOCATION & FOOTER -->
+    <footer id="location" class="bg-[#160d0b] border-t border-white/5 pt-16 pb-24 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12">
+            <!-- Contact -->
+            <div>
+                <h4 class="font-serif text-white text-xl mb-4">Visit Us</h4>
+                <p class="text-brand-textMuted text-sm mb-2">123 Luxury Lane, Beverly Hills, CA 90210</p>
+                <p class="text-brand-textMuted text-sm mb-6">(Next to the Art Museum)</p>
+                <div class="flex gap-2">
+                    <button class="btn-secondary !py-2 !px-4 text-xs">Open Maps</button>
+                    <button class="btn-secondary !py-2 !px-4 text-xs">Call Now</button>
+                </div>
+            </div>
+            
+            <!-- Hours -->
+            <div>
+                <h4 class="font-serif text-white text-xl mb-4">Hours</h4>
+                <table class="text-sm text-brand-textMuted w-full max-w-xs">
+                    <tr class="border-b border-white/5"><td class="py-2">Mon - Fri</td><td class="text-right text-white">10:00 AM - 9:00 PM</td></tr>
+                    <tr class="border-b border-white/5"><td class="py-2">Saturday</td><td class="text-right text-white">09:00 AM - 8:00 PM</td></tr>
+                    <tr><td class="py-2">Sunday</td><td class="text-right text-white">10:00 AM - 6:00 PM</td></tr>
+                </table>
+            </div>
+
+            <!-- Social -->
+            <div>
+                 <h4 class="font-serif text-white text-xl mb-4">Connect</h4>
+                 <div class="flex gap-4 mb-6">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-accentStart hover:text-brand-darker transition-all"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-accentStart hover:text-brand-darker transition-all"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                 </div>
+                 <p class="text-xs text-brand-textMuted/50">&copy; 2024 BB2W Salon.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // 1. WhatsApp Logic
+        function sendToWhatsApp(serviceName) {
+            const phone = "15551234567"; // Replace
+            let text = "Hello BB2W Salon! I'd like to book an appointment.";
+            if(serviceName) text += ` I'm interested in the *${serviceName}*.`;
+            
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // 2. Tab Logic
+        function switchTab(tabId) {
+            // Hide all content
+            document.querySelectorAll('.service-content').forEach(el => el.classList.add('hidden'));
+            // Remove active class from buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('tab-active'));
+            
+            // Show selected
+            document.getElementById(tabId + '-content').classList.remove('hidden');
+            // Activate button
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('tab-active');
+            
+            // Re-init icons just in case
+            lucide.createIcons();
+        }
+
+        // 3. Accordion Logic
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const isOpen = content.classList.contains('open');
+            
+            // Close all others (optional - strictly following strategy "keep it tidy")
+            document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('open'));
+            
+            if(!isOpen) {
+                content.classList.add('open');
+            }
+        }
+
+        // 4. Gallery Filter
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                if(category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // 5. Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('translate-x-full');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        // 6. Scroll Effects & Mobile Nav Button
+        window.addEventListener('scroll', () => {
+            // Nav Background (Existing)
+            const nav = document.getElementById('navbar');
+            
+            // Mobile Book Button Logic
+            const mobileBook = document.getElementById('mobile-book-btn');
+            
+            if (window.scrollY > 300) {
+                // Show Mobile Nav Button
+                mobileBook.classList.remove('hidden');
+                
+                // Darken Nav
+                nav.classList.add('bg-[#1C1210]/95', 'shadow-lg', 'py-3');
+                nav.classList.remove('py-4');
+            } else {
+                // Hide Mobile Nav Button (completely remove from layout)
+                mobileBook.classList.add('hidden');
+                
+                // Transparent Nav
+                nav.classList.remove('bg-[#1C1210]/95', 'shadow-lg', 'py-3');
+                nav.classList.add('py-4');
+            }
+
+            // Scroll Reveal Logic
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        });
+        
+        // Initial check for reveal (in case of reload)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

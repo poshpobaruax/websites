@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Jacob Aiden</title>
+  <style>
+    :root {
+      --bg: #0b1628;
+      --card: #0f1f38;
+      --text: #e8edf7;
+      --muted: #a7b4cc;
+      --primary: #2fb1ff;
+      --primary-strong: #45c8ff;
+      --accent: #7c5dff;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --transition: 0.3s ease;
+      --section-gap: 72px;
+      --max-width: 1100px;
+      --nav-height: 70px;
+    }
+    [data-theme="light"] {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #0f1f38;
+      --muted: #5a6475;
+      --primary: #2b82ff;
+      --primary-strong: #1a6be6;
+      --accent: #7c5dff;
+      --border: rgba(0,0,0,0.08);
+      --shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(47,177,255,0.08), transparent 35%), var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container {
+      width: min(94vw, var(--max-width));
+      margin: 0 auto;
+      padding-top: var(--nav-height);
+    }
+    /* Navbar */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      backdrop-filter: blur(10px);
+      background: rgba(11,22,40,0.85);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+    }
+    [data-theme="light"] header { background: rgba(244,247,251,0.9); }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--nav-height);
+      width: min(94vw, var(--max-width));
+      margin: 0 auto;
+      gap: 12px;
+    }
+    .logo {
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      font-size: 1.1rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 10px;
+    }
+    .nav-links a {
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: var(--muted);
+      transition: var(--transition);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .nav-links a.active,
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+    }
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      box-shadow: none;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .toggle {
+      width: 42px; height: 24px;
+      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      position: relative;
+      cursor: pointer;
+    }
+    .toggle::after {
+      content: "";
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      transition: var(--transition);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    [data-theme="light"] .toggle::after { transform: translateX(18px); }
+    main section {
+      padding: 36px 0;
+      scroll-margin-top: calc(var(--nav-height) + 20px);
+    }
+    h1,h2,h3,h4 { margin: 0 0 12px; line-height: 1.25; letter-spacing: -0.4px; }
+    p { margin: 0 0 16px; color: var(--muted); }
+    .pill {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    /* Hero */
+    #home {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: center;
+      min-height: 70vh;
+    }
+    .hero-content h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+    }
+    .hero-content h3 { color: var(--primary); margin-bottom: 12px; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+    .hero-stats {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .stat { padding: 14px 18px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.03); }
+    .hero-img {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-height: 280px;
+      background: linear-gradient(135deg, rgba(47,177,255,0.2), rgba(124,93,255,0.12));
+      display: grid;
+      place-items: center;
+    }
+    .hero-img::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80') center/cover;
+      mix-blend-mode: luminosity;
+      opacity: 0.7;
+      filter: saturate(0.8);
+    }
+    /* Quick stats */
+    .stats-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    .stat h3 { margin: 0 0 4px; }
+    /* About */
+    .about-grid { grid-template-columns: 1.2fr 1fr; align-items: center; }
+    /* Skills */
+    .skills-grid { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+    .skill { margin-bottom: 12px; }
+    .bar {
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+      height: 10px;
+    }
+    .bar span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      width: var(--value, 70%);
+      transition: width 1s ease;
+    }
+    /* Services */
+    .services-grid { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+    /* Projects */
+    .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .filter-btn {
+      padding: 8px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn.active, .filter-btn:hover { background: rgba(255,255,255,0.08); color: var(--primary); }
+    .projects-grid { grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); }
+    .project-card { position: relative; overflow: hidden; }
+    .project-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; }
+    .project-info { margin-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .tag { padding: 4px 10px; border-radius: 10px; background: rgba(255,255,255,0.07); color: var(--primary); font-size: 0.8rem; }
+    .project-card button {
+      position: absolute; inset: auto 12px 12px auto;
+      padding: 8px 12px; border-radius: 10px; border: none; cursor: pointer;
+      background: var(--primary); color: #fff; font-weight: 700; box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    .project-card button:hover { transform: translateY(-2px); }
+    /* Modal */
+    .modal {
+      position: fixed; inset: 0; display: grid; place-items: center;
+      background: rgba(0,0,0,0.65);
+      opacity: 0; pointer-events: none; transition: var(--transition);
+      padding: 20px; z-index: 1100;
+    }
+    .modal.active { opacity: 1; pointer-events: auto; }
+    .modal-content {
+      background: var(--card); border-radius: var(--radius); padding: 24px;
+      max-width: 560px; width: 100%; border: 1px solid var(--border); box-shadow: var(--shadow);
+    }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .close { cursor: pointer; border: none; background: transparent; color: var(--muted); font-size: 1.2rem; }
+    /* Timeline */
+    .timeline { position: relative; padding-left: 16px; border-left: 2px solid var(--border); display: grid; gap: 16px; }
+    .timeline-item { position: relative; padding-left: 14px; }
+    .timeline-item::before {
+      content: ""; position: absolute; left: -9px; top: 6px; width: 12px; height: 12px;
+      border-radius: 50%; background: var(--primary);
+      box-shadow: 0 0 0 6px rgba(47,177,255,0.12);
+    }
+    /* Testimonials */
+    .testimonial {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .testimonial.active { display: flex; }
+    .testimonial .name { font-weight: 700; }
+    .slider-controls { display: flex; gap: 10px; margin-top: 10px; }
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%; background: var(--border);
+      cursor: pointer; transition: var(--transition);
+    }
+    .dot.active { background: var(--primary); transform: scale(1.2); }
+    /* Contact */
+    form { display: grid; gap: 12px; }
+    input, textarea {
+      width: 100%; padding: 12px 14px;
+      border-radius: 12px; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03); color: var(--text);
+      font: inherit;
+    }
+    input:focus, textarea:focus { outline: 2px solid var(--primary); }
+    .form-row { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+    .error { color: #ff6b6b; font-size: 0.9rem; display: none; }
+    /* Location */
+    .location-output { margin-top: 8px; font-size: 0.95rem; color: var(--muted); }
+    /* Footer */
+    footer { padding: 24px 0; border-top: 1px solid var(--border); text-align: center; color: var(--muted); }
+    /* Back to top */
+    .back-top {
+      position: fixed; right: 18px; bottom: 18px;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--primary); color: #fff; border: none; cursor: pointer;
+      display: grid; place-items: center; box-shadow: var(--shadow);
+      opacity: 0; pointer-events: none; transition: var(--transition);
+      z-index: 900;
+    }
+    .back-top.show { opacity: 1; pointer-events: auto; }
+    /* Responsive */
+    @media (min-width: 900px) {
+      #home { grid-template-columns: 1.1fr 0.9fr; }
+    }
+    @media (max-width: 700px) {
+      nav { gap: 6px; }
+      .nav-links { gap: 6px; }
+      .nav-links a { padding: 8px 10px; font-size: 0.9rem; }
+      .hero-cta .btn { width: 100%; justify-content: center; }
+      .hero-stats { gap: 10px; }
+      .card { padding: 16px; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <header>
+    <nav>
+      <div class="logo">Jacob.</div>
+      <div class="nav-links" aria-label="Primary">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <div class="actions">
+        <div class="toggle" id="themeToggle" aria-label="Toggle theme" role="switch" aria-checked="false"></div>
+        <a class="btn secondary" href="#contact">Let’s Talk</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- 1. Home -->
+    <section id="home">
+      <div class="hero-content">
+        <span class="pill">Frontend Developer</span>
+        <h1>Hi, I'm Jacob Aiden</h1>
+        <h3>I build clean, modern, fast web experiences.</h3>
+        <p>Focused on immersive UI, accessibility, and performance. Helping product teams launch delightful digital experiences that convert.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#work">Hire Me</a>
+          <a class="btn secondary" href="#contact">Let's Talk</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><strong>7+</strong><br/>Years crafting interfaces</div>
+          <div class="stat"><strong>48</strong><br/>Projects shipped</div>
+          <div class="stat"><strong>16</strong><br/>Happy partners</div>
+        </div>
+      </div>
+      <div class="hero-img" aria-hidden="true"></div>
+    </section>
+
+    <!-- 2. Quick Stats -->
+    <section id="stats">
+      <div class="pill">Quick Stats</div>
+      <div class="grid stats-grid">
+        <div class="card">
+          <h3>Performance First</h3>
+          <p>Core Web Vitals optimized to keep users engaged and search engines happy.</p>
+        </div>
+        <div class="card">
+          <h3>Design Systems</h3>
+          <p>Reusable component libraries that scale with your product roadmap.</p>
+        </div>
+        <div class="card">
+          <h3>Collaboration</h3>
+          <p>Work hand-in-hand with product, design, and engineering for smooth delivery.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. About -->
+    <section id="about">
+      <div class="pill">About Me</div>
+      <div class="grid about-grid">
+        <div>
+          <h2>Building thoughtful products with empathy.</h2>
+          <p>I blend design sensibility with engineering rigor to craft interfaces that feel intuitive, inclusive, and performant. From design handoff to production-ready code, I ship with clarity and care.</p>
+          <p>Values: accessibility, maintainability, and purposeful motion that guides—not distracts.</p>
+        </div>
+        <div class="card">
+          <h4>What I’m like to work with</h4>
+          <ul>
+            <li>Clear communicator with product mindset.</li>
+            <li>Document-first: specs, decisions, and playbooks.</li>
+            <li>Testing and QA baked into the process.</li>
+            <li>Mentors teams on UI standards and best practices.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Skills -->
+    <section id="skills">
+      <div class="pill">Skills</div>
+      <div class="grid skills-grid">
+        <div class="card">
+          <h3>Frontend</h3>
+          <div class="skill"><div>React / Next.js</div><div class="bar"><span style="--value:90%"></span></div></div>
+          <div class="skill"><div>TypeScript</div><div class="bar"><span style="--value:88%"></span></div></div>
+          <div class="skill"><div>CSS / Tailwind</div><div class="bar"><span style="--value:92%"></span></div></div>
+        </div>
+        <div class="card">
+          <h3>Product</h3>
+          <div class="skill"><div>Design Systems</div><div class="bar"><span style="--value:85%"></span></div></div>
+          <div class="skill"><div>Accessibility (a11y)</div><div class="bar"><span style="--value:86%"></span></div></div>
+          <div class="skill"><div>Prototyping</div><div class="bar"><span style="--value:80%"></span></div></div>
+        </div>
+        <div class="card">
+          <h3>DevOps-ish</h3>
+          <div class="skill"><div>CI/CD</div><div class="bar"><span style="--value:78%"></span></div></div>
+          <div class="skill"><div>Perf Audits</div><div class="bar"><span style="--value:84%"></span></div></div>
+          <div class="skill"><div>Edge Deploys</div><div class="bar"><span style="--value:72%"></span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Services -->
+    <section id="services">
+      <div class="pill">Services</div>
+      <div class="grid services-grid">
+        <div class="card">
+          <h3>Product UI</h3>
+          <p>From wireframes to polished UI, balancing brand, usability, and speed.</p>
+        </div>
+        <div class="card">
+          <h3>Design Systems</h3>
+          <p>Token-driven libraries that keep teams aligned and shipping faster.</p>
+        </div>
+        <div class="card">
+          <h3>Performance</h3>
+          <p>Audits, profiling, and fixes to hit lighthouse targets and boost conversion.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Projects -->
+    <section id="work">
+      <div class="pill">Featured Projects</div>
+      <div class="filters" aria-label="Project filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="web">Web</button>
+        <button class="filter-btn" data-filter="ui">UI</button>
+        <button class="filter-btn" data-filter="branding">Branding</button>
+      </div>
+      <div class="grid projects-grid" id="projectsGrid">
+        <!-- Projects populated by JS -->
+      </div>
+    </section>
+
+    <!-- 7. Experience -->
+    <section id="experience">
+      <div class="pill">Experience</div>
+      <div class="timeline" aria-label="Experience timeline">
+        <div class="timeline-item">
+          <h4>Lead Frontend · Nova Labs</h4>
+          <p>2022 — Present · Scaled design system and led migration to edge-rendered architecture.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>Senior UI Engineer · Horizon</h4>
+          <p>2019 — 2022 · Built multi-tenant dashboard with real-time data viz and accessibility standards.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>UI Developer · Freelance</h4>
+          <p>2016 — 2019 · Delivered bespoke marketing sites and product MVPs for startups.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Testimonials -->
+    <section id="testimonials">
+      <div class="pill">Testimonials</div>
+      <div class="card">
+        <div id="testimonialList">
+          <div class="testimonial active">
+            <p>“Jacob translated our brand into a living product. The velocity and quality were unmatched.”</p>
+            <div class="name">Alex Kim · Product Lead</div>
+          </div>
+          <div class="testimonial">
+            <p>“A rare combo of design taste and engineering depth. Our metrics improved across the board.”</p>
+            <div class="name">Priya Patel · Founder</div>
+          </div>
+          <div class="testimonial">
+            <p>“Communicative, thoughtful, and always ahead of blockers. A joy to collaborate with.”</p>
+            <div class="name">Michael Chen · CTO</div>
+          </div>
+        </div>
+        <div class="slider-controls" aria-label="Testimonial navigation">
+          <div class="dot active" data-slide="0"></div>
+          <div class="dot" data-slide="1"></div>
+          <div class="dot" data-slide="2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Contact + Location -->
+    <section id="contact">
+      <div class="pill">Contact</div>
+      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 16px;">
+        <div class="card">
+          <h3>Let’s build something great</h3>
+          <p>Quickest path: drop a note. I respond within 24 hours.</p>
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div>
+                <label for="name">Name</label>
+                <input id="name" name="name" required aria-required="true" placeholder="Your name" />
+                <div class="error" id="errName">Please enter your name.</div>
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required aria-required="true" placeholder="you@mail.com" />
+                <div class="error" id="errEmail">Enter a valid email.</div>
+              </div>
+            </div>
+            <div>
+              <label for="message">Project Brief</label>
+              <textarea id="message" name="message" rows="4" required aria-required="true" placeholder="What do you need?"></textarea>
+              <div class="error" id="errMsg">Please add a short brief.</div>
+            </div>
+            <button class="btn" type="submit">Send Message</button>
+            <div class="error" id="formStatus" style="display:none;"></div>
+          </form>
+        </div>
+        <div class="card">
+          <h3>Location & Availability</h3>
+          <p>Available for remote collaborations. I love pairing with distributed teams.</p>
+          <button class="btn secondary" id="locateBtn" type="button">Share Location</button>
+          <div class="location-output" id="locationOutput">City/coordinates will appear here.</div>
+          <div class="location-output" id="mapLink"></div>
+          <h4>Also reachable at</h4>
+          <p>Email: hello@jacobaiden.dev<br/>LinkedIn · Dribbble · GitHub</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Footer -->
+    <footer id="footer">
+      <div>© 2025 Jacob Aiden · Built with care and curiosity.</div>
+      <div style="margin-top:6px;">Accessibility-first · Fast · Responsive</div>
+    </footer>
+  </div>
+
+  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+  <!-- Project Modal -->
+  <div class="modal" id="projectModal" aria-modal="true" role="dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Project Title</h3>
+        <button class="close" id="closeModal" aria-label="Close modal">×</button>
+      </div>
+      <p id="modalDesc">Project description goes here.</p>
+      <div id="modalMeta" style="color:var(--muted); font-size:0.95rem;"></div>
+    </div>
+  </div>
+
+  <script>
+    // Sample project data
+    const projects = [
+      { title: "Nova Dashboard", type: "web", img: "https://images.unsplash.com/photo-1523475496153-3d6cc3000bec?auto=format&fit=crop&w=800&q=80", desc: "Analytics dashboard with real-time collaboration and role-based access.", meta: "Role: Lead Frontend · Stack: Next.js, TypeScript, Tailwind" },
+      { title: "Helio Brand", type: "branding", img: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=800&q=80", desc: "Visual identity and design system for a climate startup.", meta: "Role: Design System · Stack: Figma, Tokens" },
+      { title: "Flow UI Kit", type: "ui", img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80", desc: "Component library with accessibility baked in.", meta: "Role: UI Engineer · Stack: React, Storybook" },
+      { title: "Pulse Web", type: "web", img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80", desc: "High-converting marketing site with CMS integration.", meta: "Role: Frontend · Stack: Next.js, Headless CMS" },
+      { title: "Lumen Rebrand", type: "branding", img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80", desc: "Rebrand rollout with new design tokens and templates.", meta: "Role: Brand System · Stack: Figma" },
+      { title: "UI Motion Set", type: "ui", img: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=800&q=80", desc: "Micro-interactions pack for product teams.", meta: "Role: Motion Design · Stack: After Effects, Lottie" }
+    ];
+    const projectsGrid = document.getElementById("projectsGrid");
+    const modal = document.getElementById("projectModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalMeta = document.getElementById("modalMeta");
+    const closeModal = document.getElementById("closeModal");
+
+    const renderProjects = (filter = "all") => {
+      projectsGrid.innerHTML = "";
+      projects
+        .filter(p => filter === "all" || p.type === filter)
+        .forEach(p => {
+          const card = document.createElement("div");
+          card.className = "card project-card";
+          card.innerHTML = `
+            <img src="${p.img}" alt="${p.title}" loading="lazy">
+            <div class="project-info">
+              <div>
+                <h4>${p.title}</h4>
+                <span class="tag">${p.type}</span>
+              </div>
+              <span style="color:var(--muted); font-size:0.9rem;">View</span>
+            </div>
+            <button type="button">Details</button>
+          `;
+          card.querySelector("button").addEventListener("click", () => openModal(p));
+          projectsGrid.appendChild(card);
+        });
+    };
+
+    const openModal = (project) => {
+      modalTitle.textContent = project.title;
+      modalDesc.textContent = project.desc;
+      modalMeta.textContent = project.meta;
+      modal.classList.add("active");
+    };
+    closeModal.addEventListener("click", () => modal.classList.remove("active"));
+    modal.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove("active"); });
+
+    // Filters
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderProjects(btn.dataset.filter);
+      });
+    });
+
+    // Testimonials slider
+    const testimonials = [...document.querySelectorAll(".testimonial")];
+    const dots = [...document.querySelectorAll(".dot")];
+    dots.forEach(dot => dot.addEventListener("click", () => {
+      const i = Number(dot.dataset.slide);
+      testimonials.forEach((t, idx) => t.classList.toggle("active", idx === i));
+      dots.forEach((d, idx) => d.classList.toggle("active", idx === i));
+    }));
+
+    // Smooth scroll active state
+    const navLinks = document.querySelectorAll(".nav-link");
+    const sections = ["about","work","contact"].map(id => document.getElementById(id));
+    const onScroll = () => {
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      sections.forEach((sec, idx) => {
+        if (sec.offsetTop <= scrollPos && sec.offsetTop + sec.offsetHeight > scrollPos) {
+          navLinks.forEach(l => l.classList.remove("active"));
+          navLinks[idx].classList.add("active");
+        }
+      });
+      // Back to top
+      const backTop = document.getElementById("backTop");
+      if (window.scrollY > 400) backTop.classList.add("show"); else backTop.classList.remove("show");
+    };
+    window.addEventListener("scroll", onScroll);
+
+    // Back to top
+    document.getElementById("backTop").addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+
+    // Theme toggle
+    const themeToggle = document.getElementById("themeToggle");
+    const setTheme = (mode) => { document.body.setAttribute("data-theme", mode); themeToggle.setAttribute("aria-checked", mode === "light"); };
+    themeToggle.addEventListener("click", () => {
+      const isLight = document.body.getAttribute("data-theme") === "light";
+      setTheme(isLight ? "dark" : "light");
+    });
+
+    // Contact form validation
+    const form = document.getElementById("contactForm");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      let valid = true;
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const msg = form.message.value.trim();
+      const emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+      const showErr = (id, show) => { const el = document.getElementById(id); el.style.display = show ? "block" : "none"; };
+
+      showErr("errName", !name); valid = valid && !!name;
+      showErr("errEmail", !emailOk); valid = valid && emailOk;
+      showErr("errMsg", msg.length < 8); valid = valid && msg.length >= 8;
+
+      const status = document.getElementById("formStatus");
+      if (valid) {
+        status.style.display = "block";
+        status.style.color = "var(--primary)";
+        status.textContent = "Thanks! Your message is ready to send.";
+        form.reset();
+      } else {
+        status.style.display = "block";
+        status.style.color = "#ff6b6b";
+        status.textContent = "Please fix the highlighted fields.";
+      }
+    });
+
+    // Geolocation
+    const locateBtn = document.getElementById("locateBtn");
+    const locationOutput = document.getElementById("locationOutput");
+    const mapLink = document.getElementById("mapLink");
+    locateBtn.addEventListener("click", () => {
+      locationOutput.textContent = "Requesting location…";
+      mapLink.textContent = "";
+      if (!navigator.geolocation) {
+        locationOutput.textContent = "Geolocation not supported by your browser.";
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
+          locationOutput.textContent = `Coordinates: ${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+          const url = `https://www.google.com/maps?q=${latitude},${longitude}`;
+          mapLink.innerHTML = `<a href="${url}" target="_blank" rel="noopener">Open in Maps</a>`;
+        },
+        () => { locationOutput.textContent = "Permission denied or unavailable."; }
+      );
+    });
+
+    // Init
+    renderProjects();
+    setTheme("dark");
+  </script>
+</body>
+</html>

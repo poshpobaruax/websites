@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Calculator Library - Precision Tools for Finance, Health & Math</title>
+    <meta name="description" content="Free, professional-grade calculators for mortgage, BMI, loans, and scientific math. Dark mode enabled and mobile-friendly.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/favicon.ico">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container nav-inner">
+            <a href="index.html" class="brand-logo">
+                <span style="color: var(--btn-primary);">Calculator</span> Library
+            </a>
+
+            <div class="search-wrapper">
+                <svg class="search-icon-left" width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input type="text" id="global-search" class="search-input" placeholder="Search for tools..." aria-label="Search">
+                <span class="search-shortcut">⌘ K</span>
+            </div>
+
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                <svg class="icon-moon" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display: none;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg class="icon-sun" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        
+        <section style="margin: 3rem 0 2.5rem;">
+            <h1 style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">Dashboard</h1>
+            <p style="color: var(--text-secondary);">Select a calculator to begin.</p>
+        </section>
+
+        <section class="category-section" style="margin-bottom: 3rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                <h2 class="section-title">Financial</h2>
+                <span style="font-size: 0.75rem; color: var(--text-secondary); background: var(--bg-input); padding: 2px 8px; border-radius: 12px; border: 1px solid var(--border-color);">4 Tools</span>
+            </div>
+            
+            <div class="grid-calculators">
+                <a href="calculators/mortgage-calculator.html" class="calc-card glass-panel">
+                    <h3>Mortgage Calculator</h3>
+                    <p>Estimate monthly payments including taxes and insurance costs.</p>
+                    <div style="margin-top: auto; align-self: flex-end; color: var(--text-brand);">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </a>
+
+                <a href="calculators/loan-calculator.html" class="calc-card glass-panel">
+                    <h3>Loan Calculator</h3>
+                    <p>Calculate amortization schedules for personal or business loans.</p>
+                    <div style="margin-top: auto; align-self: flex-end; color: var(--text-brand);">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </a>
+
+                <a href="#" class="calc-card glass-panel">
+                    <h3>Auto Loan Calculator</h3>
+                    <p>Determine monthly payments for new or used car financing.</p>
+                    <div style="margin-top: auto; align-self: flex-end; color: var(--text-brand);">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </a>
+
+                <a href="#" class="calc-card glass-panel">
+                    <h3>Interest Calculator</h3>
+                    <p>Compute simple or compound interest growth over time.</p>
+                    <div style="margin-top: auto; align-self: flex-end; color: var(--text-brand);">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="category-section">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                <h2 class="section-title">Health & Science</h2>
+                <span style="font-size: 0.75rem; color: var(--text-secondary); background: var(--bg-input); padding: 2px 8px; border-radius: 12px; border: 1px solid var(--border-color);">2 Tools</span>
+            </div>
+
+            <div class="grid-calculators">
+                <a href="calculators/bmi-calculator.html" class="calc-card glass-panel">
+                    <h3>BMI Calculator</h3>
+                    <p>Calculate Body Mass Index for adults and children (Metric/US).</p>
+                    <div style="margin-top: auto; align-self: flex-end; color: var(--text-brand);">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </a>
+
+                <a href="calculators/scientific-calculator.html" class="calc-card glass-panel">
+                    <h3>Scientific Calculator</h3>
+                    <p>Advanced math functions including trigonometry and logs.</p>
+                    <div style="margin-top: auto; align-self: flex-end; color: var(--text-brand);">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>
+                &copy; 2024 Calculator Library. All rights reserved.<br>
+                Engineered by <a href="https://www.brainboxtoweb.tech/" target="_blank" rel="noopener" class="agency-link">Brain Box to Web</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

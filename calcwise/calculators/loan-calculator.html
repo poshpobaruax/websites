@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO -->
+    <title>Loan Calculator - Amortization & Monthly Payments</title>
+    <meta name="description" content="Calculate monthly payments for personal loans, auto loans, or business loans. See total interest costs instantly. Free and private.">
+    
+    <!-- Fonts & Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <style>
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        
+        .result-row:last-of-type { border-bottom: none; }
+        .result-val { color: var(--text-primary); font-weight: 600; }
+        
+        .highlight-val { color: var(--text-brand); font-weight: 700; }
+    </style>
+</head>
+<body>
+
+    <!-- =========================================
+       GLOBAL HEADER
+       ========================================= -->
+    <header class="site-header">
+        <div class="container nav-inner">
+            <a href="../index.html" class="brand-logo">
+                <span style="color: var(--btn-primary);">Calculator</span> Library
+            </a>
+
+            <div class="search-wrapper">
+                <svg class="search-icon-left" width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input type="text" id="global-search" class="search-input" placeholder="Search tools..." aria-label="Search calculators">
+                <span class="search-shortcut">⌘ K</span>
+            </div>
+
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                <svg class="icon-moon" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display: none;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg class="icon-sun" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- =========================================
+       CALCULATOR UI
+       ========================================= -->
+    <main class="main-content container">
+        
+        <!-- Breadcrumbs -->
+        <div style="margin: 2rem 0 1rem; font-size: 0.85rem; color: var(--text-secondary);">
+            <a href="../index.html">Home</a> <span style="margin:0 5px;">/</span> Financial <span style="margin:0 5px;">/</span> Loan Calculator
+        </div>
+
+        <section class="glass-panel" style="padding: 2rem;">
+            <h1 class="section-title" style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 2rem;">Loan Calculator</h1>
+            
+            <div class="calc-layout">
+                <!-- INPUTS -->
+                <form id="loan-form">
+                    <div class="form-group">
+                        <label class="form-label">Loan Amount ($)</label>
+                        <input type="number" id="amount" class="form-input" value="25000" placeholder="e.g. 25000">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Interest Rate (%)</label>
+                        <input type="number" id="rate" class="form-input" value="5.5" step="0.1" placeholder="e.g. 5.5">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Loan Term</label>
+                        <div style="display: flex; gap: 1rem;">
+                            <input type="number" id="term" class="form-input" value="5" placeholder="Duration">
+                        </div>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="term-unit" value="years" checked> Years
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="term-unit" value="months"> Months
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="calculateLoan()" class="btn-calculate" style="margin-top: 1rem;">Calculate Loan</button>
+                </form>
+
+                <!-- RESULTS -->
+                <div class="result-box">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 0.5rem;">Monthly Payment</span>
+                    <div class="big-amount" id="monthly-payment">$0.00</div>
+                    
+                    <div style="width: 100%; margin-top: 2rem;">
+                        <div class="result-row">
+                            <span>Total Principal</span>
+                            <span class="result-val" id="total-principal">$0</span>
+                        </div>
+                        <div class="result-row">
+                            <span>Total Interest</span>
+                            <span class="result-val highlight-val" id="total-interest">$0</span>
+                        </div>
+                        <div class="result-row" style="border-top: 1px solid var(--border-color); margin-top: 0.5rem; padding-top: 0.5rem;">
+                            <span>Total Repayment</span>
+                            <span class="result-val" id="total-cost">$0</span>
+                        </div>
+                    </div>
+
+                    <!-- Discrete Donation -->
+                    <a href="https://www.buymeacoffee.com" target="_blank" class="hidden-donate">
+                        ☕ Value this tool? Support the dev.
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========================================
+       GLOBAL FOOTER
+       ========================================= -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>
+                &copy; 2024 Calculator Library<br>
+                Engineered by <a href="https://www.brainboxtoweb.tech/" target="_blank" class="agency-link">Brain Box to Web</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Global Logic -->
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Page Specific Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', calculateLoan);
+
+        function calculateLoan() {
+            // Get Values
+            const P = parseFloat(document.getElementById('amount').value);
+            const rateInput = parseFloat(document.getElementById('rate').value);
+            let termInput = parseFloat(document.getElementById('term').value);
+            
+            // Check Unit (Years vs Months)
+            const unit = document.querySelector('input[name="term-unit"]:checked').value;
+            if (unit === 'years') {
+                termInput = termInput * 12; // Convert to months
+            }
+
+            // Validation
+            if (!P || !rateInput || !termInput) return;
+
+            // Math
+            const r = rateInput / 100 / 12; // Monthly Rate
+            const n = termInput;            // Total Months
+
+            let monthly = 0;
+            if (rateInput === 0) {
+                monthly = P / n;
+            } else {
+                monthly = P * ( (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1) );
+            }
+
+            const totalPay = monthly * n;
+            const totalInt = totalPay - P;
+
+            // Formatting
+            const fmt = (num) => "$" + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            const fmtInt = (num) => "$" + num.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
+
+            // UI Update
+            document.getElementById('monthly-payment').textContent = fmt(monthly);
+            document.getElementById('total-principal').textContent = fmtInt(P);
+            document.getElementById('total-interest').textContent = fmtInt(totalInt);
+            document.getElementById('total-cost').textContent = fmtInt(totalPay);
+        }
+    </script>
+</body>
+</html>

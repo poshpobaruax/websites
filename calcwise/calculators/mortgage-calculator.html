@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Mortgage Calculator - Estimate Monthly Payments</title>
+    <!-- SEO -->
+    <title>Mortgage Calculator - CalcWise</title>
     <meta name="description" content="Calculate your monthly mortgage payment. Includes breakdowns for principal and interest. Free, private, and dark-mode ready.">
     
+    <!-- Fonts & Styles -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     
+    <!-- Page Specific Styles -->
     <style>
         .result-row {
             display: flex;
@@ -33,10 +36,13 @@
 </head>
 <body>
 
+    <!-- =========================================
+       GLOBAL HEADER
+       ========================================= -->
     <header class="site-header">
         <div class="container nav-inner">
             <a href="../index.html" class="brand-logo">
-                <span style="color: var(--btn-primary);">Calculator</span> Library
+                <span style="color: var(--btn-primary);">Calc</span>Wise
             </a>
 
             <div class="search-wrapper">
@@ -58,8 +64,12 @@
         </div>
     </header>
 
+    <!-- =========================================
+       CALCULATOR UI
+       ========================================= -->
     <main class="main-content container">
         
+        <!-- Breadcrumbs -->
         <div style="margin: 2rem 0 1rem; font-size: 0.85rem; color: var(--text-secondary);">
             <a href="../index.html">Home</a> <span style="margin:0 5px;">/</span> Financial <span style="margin:0 5px;">/</span> Mortgage Calculator
         </div>
@@ -68,25 +78,43 @@
             <h1 class="section-title" style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 2rem;">Mortgage Calculator</h1>
             
             <div class="calc-layout">
+                <!-- INPUTS -->
                 <form id="mortgage-form">
                     <div class="form-group">
-                        <label class="form-label">Loan Amount ($)</label>
-                        <input type="number" id="amount" class="form-input" value="300000" placeholder="e.g. 300000">
+                        <label class="form-label">Currency</label>
+                        <select id="currency-select" class="form-select" onchange="updateCurrency()">
+                            <option value="$">USD ($)</option>
+                            <option value="€">EUR (€)</option>
+                            <option value="£">GBP (£)</option>
+                            <option value="¥">JPY (¥)</option>
+                            <option value="₹">INR (₹)</option>
+                            <option value="C$">CAD (C$)</option>
+                            <option value="A$">AUD (A$)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Loan Amount</label>
+                        <input type="number" id="amount" class="form-input" placeholder="e.g. 300000">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Interest Rate (%)</label>
-                        <input type="number" id="rate" class="form-input" value="6.5" step="0.1" placeholder="e.g. 6.5">
+                        <input type="number" id="rate" class="form-input" step="0.1" placeholder="e.g. 6.5">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Loan Term (Years)</label>
-                        <input type="number" id="years" class="form-input" value="30" placeholder="e.g. 30">
+                        <input type="number" id="years" class="form-input" placeholder="e.g. 30">
                     </div>
 
-                    <button type="button" onclick="calculateMortgage()" class="btn-calculate" style="margin-top: 1rem;">Calculate Payment</button>
+                    <div class="btn-group">
+                        <button type="button" onclick="calculateMortgage()" class="btn-calculate">Calculate</button>
+                        <button type="button" onclick="resetCalculator()" class="btn-reset">Reset</button>
+                    </div>
                 </form>
 
+                <!-- RESULTS -->
                 <div class="result-box">
                     <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 0.5rem;">Estimated Monthly Payment</span>
                     <div class="big-amount" id="monthly-val">$0.00</div>
@@ -106,6 +134,7 @@
                         </div>
                     </div>
 
+                    <!-- Discrete Donation -->
                     <a href="https://www.buymeacoffee.com" target="_blank" class="hidden-donate">
                         ☕ Value this tool? Support the dev.
                     </a>
@@ -114,20 +143,55 @@
         </section>
     </main>
 
+    <!-- =========================================
+       GLOBAL FOOTER
+       ========================================= -->
     <footer class="site-footer">
         <div class="container">
             <p>
-                &copy; 2024 Calculator Library<br>
+                &copy; 2024 CalcWise<br>
                 Engineered by <a href="https://www.brainboxtoweb.tech/" target="_blank" class="agency-link">Brain Box to Web</a>
             </p>
         </div>
     </footer>
 
+    <!-- Global Logic -->
     <script src="../assets/js/main.js"></script>
 
+    <!-- Page Specific Logic -->
     <script>
-        // Calculate on load for demo
-        document.addEventListener('DOMContentLoaded', calculateMortgage);
+        let currentCurrency = "$";
+
+        function updateCurrency() {
+            currentCurrency = document.getElementById('currency-select').value;
+            // Only re-calculate if we have valid inputs, otherwise just update the symbols
+            const amount = document.getElementById('amount').value;
+            if(amount) {
+                calculateMortgage();
+            } else {
+                resetVisualsOnly();
+            }
+        }
+
+        function resetVisualsOnly() {
+            document.getElementById('monthly-val').textContent = currentCurrency + "0.00";
+            document.getElementById('total-principal').textContent = currentCurrency + "0";
+            document.getElementById('total-interest').textContent = currentCurrency + "0";
+            document.getElementById('total-cost').textContent = currentCurrency + "0";
+        }
+
+        function resetCalculator() {
+            // Save the current currency selection before resetting form
+            const selectedCurrencyIndex = document.getElementById('currency-select').selectedIndex;
+            
+            document.getElementById('mortgage-form').reset();
+            
+            // Restore currency selection because reset() wipes it to default
+            document.getElementById('currency-select').selectedIndex = selectedCurrencyIndex;
+            currentCurrency = document.getElementById('currency-select').value;
+
+            resetVisualsOnly();
+        }
 
         function calculateMortgage() {
             // Get values
@@ -135,8 +199,8 @@
             const annualRate = parseFloat(document.getElementById('rate').value);
             const termYears = parseFloat(document.getElementById('years').value);
 
-            // Validation
-            if (!P || !annualRate || !termYears) return;
+            // Validation: If empty or invalid, return early
+            if (isNaN(P) || isNaN(annualRate) || isNaN(termYears)) return;
 
             // Math
             const r = annualRate / 100 / 12; // Monthly rate
@@ -155,11 +219,11 @@
 
             // Formatting Helper
             const fmt = (num) => {
-                return "$" + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                return currentCurrency + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
             };
 
             const fmtNoDec = (num) => {
-                return "$" + num.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
+                return currentCurrency + num.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
             };
 
             // Update UI
@@ -168,6 +232,9 @@
             document.getElementById('total-interest').textContent = fmtNoDec(totalInterest);
             document.getElementById('total-cost').textContent = fmtNoDec(totalCost);
         }
+        
+        // Initial setup
+        resetVisualsOnly();
     </script>
 </body>
 </html>

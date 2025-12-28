@@ -62,7 +62,6 @@
 body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background-color: var(--bg-body);
-    /* Tech Grid Pattern */
     background-image: 
         linear-gradient(var(--bg-grid) 1px, transparent 1px),
         linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
@@ -94,7 +93,6 @@ a {
     padding-bottom: 4rem;
 }
 
-/* Glassmorphism Utility */
 .glass-panel {
     background: var(--bg-card);
     backdrop-filter: blur(12px);
@@ -115,7 +113,7 @@ a {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background-color: var(--bg-card); /* Prevents transparency bleed */
+    background-color: var(--bg-card);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-color);
 }
@@ -136,7 +134,6 @@ a {
     align-items: center;
 }
 
-/* Search Bar */
 .search-wrapper {
     flex: 1;
     max-width: 450px;
@@ -156,7 +153,7 @@ a {
     position: absolute;
     right: 12px;
     border: 1px solid var(--border-color);
-    background: var(--bg-body); /* Solid bg to hide input text behind it */
+    background: var(--bg-body);
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 0.7rem;
@@ -181,7 +178,6 @@ a {
     box-shadow: 0 0 0 3px rgba(59, 80, 209, 0.15);
 }
 
-/* Theme Toggle */
 .theme-btn {
     background: transparent;
     border: 1px solid var(--border-color);
@@ -267,7 +263,8 @@ a {
     font-weight: 500;
 }
 
-.form-input {
+/* Unified style for inputs and selects */
+.form-input, .form-select {
     width: 100%;
     background-color: var(--bg-input);
     border: 1px solid var(--border-color);
@@ -275,12 +272,30 @@ a {
     padding: 0.8rem;
     border-radius: 8px;
     font-size: 1rem;
+    appearance: none; /* Removes default arrow for selects */
+    -webkit-appearance: none;
 }
 
-.form-input:focus {
+/* Custom Arrow for Selects */
+.form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235F6368' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    cursor: pointer;
+}
+
+.form-input:focus, .form-select:focus {
     outline: none;
     border-color: var(--text-brand);
     box-shadow: var(--glow);
+}
+
+/* BUTTON GROUP (Calculate + Reset) */
+.btn-group {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Calculate is wider */
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .btn-calculate {
@@ -296,6 +311,24 @@ a {
 }
 
 .btn-calculate:hover { opacity: 0.9; }
+
+.btn-reset {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-reset:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+    background: var(--bg-input);
+}
 
 /* Result Box Style */
 .result-box {
@@ -317,7 +350,6 @@ a {
     margin: 0.5rem 0;
 }
 
-/* Hidden Donate Link */
 .hidden-donate {
     margin-top: 1.5rem;
     font-size: 0.75rem;

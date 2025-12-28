@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>BMI Calculator - Free Body Mass Index Tool</title>
+    <!-- SEO -->
+    <title>BMI Calculator - CalcWise</title>
     <meta name="description" content="Calculate your Body Mass Index (BMI) instantly. Supports Metric (cm/kg) and US (feet/lbs) units. Free and mobile-friendly.">
     
+    <!-- Fonts & Styles -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     
+    <!-- Page Specific Styles -->
     <style>
         /* Tab Switcher */
         .unit-tabs {
@@ -79,10 +82,13 @@
 </head>
 <body>
 
+    <!-- =========================================
+       GLOBAL HEADER
+       ========================================= -->
     <header class="site-header">
         <div class="container nav-inner">
             <a href="../index.html" class="brand-logo">
-                <span style="color: var(--btn-primary);">Calculator</span> Library
+                <span style="color: var(--btn-primary);">Calc</span>Wise
             </a>
 
             <div class="search-wrapper">
@@ -104,8 +110,12 @@
         </div>
     </header>
 
+    <!-- =========================================
+       CALCULATOR UI
+       ========================================= -->
     <main class="main-content container">
         
+        <!-- Breadcrumbs -->
         <div style="margin: 2rem 0 1rem; font-size: 0.85rem; color: var(--text-secondary);">
             <a href="../index.html">Home</a> <span style="margin:0 5px;">/</span> Health <span style="margin:0 5px;">/</span> BMI Calculator
         </div>
@@ -114,7 +124,9 @@
             <h1 class="section-title" style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 2rem;">BMI Calculator</h1>
             
             <div class="calc-layout">
+                <!-- INPUTS -->
                 <div>
+                    <!-- Tabs -->
                     <div class="unit-tabs">
                         <button class="tab-btn active" onclick="switchUnit('us')">US Units</button>
                         <button class="tab-btn" onclick="switchUnit('metric')">Metric Units</button>
@@ -123,35 +135,37 @@
                     <form id="bmi-form">
                         <div class="form-group">
                             <label class="form-label">Age</label>
-                            <input type="number" class="form-input" value="25" placeholder="e.g. 25">
+                            <input type="number" class="form-input" placeholder="e.g. 25">
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">Gender</label>
                             <div style="display: flex; gap: 1.5rem; padding-top: 0.5rem;">
-                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-primary);">
                                     <input type="radio" name="gender" checked> Male
                                 </label>
-                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-primary);">
                                     <input type="radio" name="gender"> Female
                                 </label>
                             </div>
                         </div>
 
+                        <!-- US Inputs -->
                         <div id="us-inputs">
                             <div class="form-group">
                                 <label class="form-label">Height</label>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                                    <input type="number" id="ft" class="form-input" placeholder="Feet" value="5">
-                                    <input type="number" id="in" class="form-input" placeholder="Inches" value="10">
+                                    <input type="number" id="ft" class="form-input" placeholder="Feet">
+                                    <input type="number" id="in" class="form-input" placeholder="Inches">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Weight (lbs)</label>
-                                <input type="number" id="lbs" class="form-input" placeholder="Pounds" value="160">
+                                <input type="number" id="lbs" class="form-input" placeholder="Pounds">
                             </div>
                         </div>
 
+                        <!-- Metric Inputs (Hidden) -->
                         <div id="metric-inputs" style="display: none;">
                             <div class="form-group">
                                 <label class="form-label">Height (cm)</label>
@@ -163,10 +177,14 @@
                             </div>
                         </div>
 
-                        <button type="button" onclick="calculateBMI()" class="btn-calculate" style="margin-top: 1rem;">Calculate BMI</button>
+                        <div class="btn-group">
+                            <button type="button" onclick="calculateBMI()" class="btn-calculate">Calculate BMI</button>
+                            <button type="button" onclick="resetCalculator()" class="btn-reset">Reset</button>
+                        </div>
                     </form>
                 </div>
 
+                <!-- RESULTS -->
                 <div class="result-box">
                     <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 0.5rem;">Your BMI Result</span>
                     <div class="bmi-score" id="bmi-val">--</div>
@@ -181,6 +199,7 @@
                         <span>30</span>
                     </div>
 
+                    <!-- Discrete Donation -->
                     <a href="https://www.buymeacoffee.com" target="_blank" class="hidden-donate">
                         ☕ Value this tool? Support the dev.
                     </a>
@@ -189,17 +208,22 @@
         </section>
     </main>
 
+    <!-- =========================================
+       GLOBAL FOOTER
+       ========================================= -->
     <footer class="site-footer">
         <div class="container">
             <p>
-                &copy; 2024 Calculator Library<br>
+                &copy; 2024 CalcWise<br>
                 Engineered by <a href="https://www.brainboxtoweb.tech/" target="_blank" class="agency-link">Brain Box to Web</a>
             </p>
         </div>
     </footer>
 
+    <!-- Global Logic -->
     <script src="../assets/js/main.js"></script>
 
+    <!-- Page Specific Logic -->
     <script>
         let mode = 'us';
 
@@ -222,29 +246,56 @@
             }
         }
 
+        function resetVisualsOnly() {
+            const valEl = document.getElementById('bmi-val');
+            const msgEl = document.getElementById('bmi-msg');
+            const marker = document.getElementById('marker');
+
+            valEl.textContent = "--";
+            valEl.style.color = "var(--text-brand)";
+            msgEl.textContent = "Enter details";
+            msgEl.style.color = "var(--text-primary)";
+            marker.style.left = "0%";
+            marker.style.backgroundColor = "var(--text-primary)";
+        }
+
+        function resetCalculator() {
+            document.getElementById('bmi-form').reset();
+            // Reset to default tab
+            switchUnit('us');
+            resetVisualsOnly();
+        }
+
         function calculateBMI() {
             let h = 0; // meters
             let w = 0; // kg
 
             if (mode === 'us') {
-                const ft = parseFloat(document.getElementById('ft').value) || 0;
-                const inc = parseFloat(document.getElementById('in').value) || 0;
-                const lbs = parseFloat(document.getElementById('lbs').value) || 0;
+                const ft = parseFloat(document.getElementById('ft').value);
+                const inc = parseFloat(document.getElementById('in').value);
+                const lbs = parseFloat(document.getElementById('lbs').value);
                 
-                if (ft === 0 && lbs === 0) return;
+                // If any main input is missing, return
+                if (isNaN(lbs)) return;
+                // Height needs at least one valid number, or treat empty as 0
+                const ftVal = isNaN(ft) ? 0 : ft;
+                const incVal = isNaN(inc) ? 0 : inc;
+                if (ftVal === 0 && incVal === 0) return;
 
-                const totalInches = (ft * 12) + inc;
+                const totalInches = (ftVal * 12) + incVal;
                 h = totalInches * 0.0254;
                 w = lbs * 0.453592;
             } else {
-                const cm = parseFloat(document.getElementById('cm').value) || 0;
-                const kg = parseFloat(document.getElementById('kg').value) || 0;
+                const cm = parseFloat(document.getElementById('cm').value);
+                const kg = parseFloat(document.getElementById('kg').value);
 
-                if (cm === 0 && kg === 0) return;
+                if (isNaN(cm) || isNaN(kg)) return;
 
                 h = cm / 100;
                 w = kg;
             }
+
+            if (h <= 0 || w <= 0) return;
 
             const bmi = w / (h * h);
             const score = bmi.toFixed(1);
@@ -285,6 +336,9 @@
             marker.style.left = percent + '%';
             marker.style.backgroundColor = color;
         }
+
+        // Init
+        resetVisualsOnly();
     </script>
 </body>
 </html>

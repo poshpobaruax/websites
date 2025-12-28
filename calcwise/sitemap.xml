@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+   <!-- 1. HOMEPAGE -->
    <url>
       <loc>https://calcwise.me/index.html</loc>
       <lastmod>2024-05-20</lastmod>
@@ -8,6 +9,7 @@
       <priority>1.0</priority>
    </url>
 
+   <!-- 2. FINANCIAL -->
    <url>
       <loc>https://calcwise.me/calculators/mortgage-calculator.html</loc>
       <lastmod>2024-05-20</lastmod>
@@ -22,6 +24,7 @@
       <priority>0.8</priority>
    </url>
 
+   <!-- 3. HEALTH -->
    <url>
       <loc>https://calcwise.me/calculators/bmi-calculator.html</loc>
       <lastmod>2024-05-20</lastmod>
@@ -29,6 +32,7 @@
       <priority>0.8</priority>
    </url>
 
+   <!-- 4. MATH -->
    <url>
       <loc>https://calcwise.me/calculators/scientific-calculator.html</loc>
       <lastmod>2024-05-20</lastmod>

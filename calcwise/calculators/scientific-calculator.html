@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Scientific Calculator - Advanced Online Math Tool</title>
+    <!-- SEO -->
+    <title>Scientific Calculator - CalcWise</title>
     <meta name="description" content="Free online scientific calculator. Solves trigonometry, logarithms, exponents, and basic math. Mobile-friendly dark mode interface.">
     
+    <!-- Fonts & Styles -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     
+    <!-- Page Specific Styles -->
     <style>
         .scientific-wrapper {
             max-width: 450px;
@@ -112,10 +115,13 @@
 </head>
 <body>
 
+    <!-- =========================================
+       GLOBAL HEADER
+       ========================================= -->
     <header class="site-header">
         <div class="container nav-inner">
             <a href="../index.html" class="brand-logo">
-                <span style="color: var(--btn-primary);">Calculator</span> Library
+                <span style="color: var(--btn-primary);">Calc</span>Wise
             </a>
 
             <div class="search-wrapper">
@@ -137,8 +143,12 @@
         </div>
     </header>
 
+    <!-- =========================================
+       CALCULATOR UI
+       ========================================= -->
     <main class="main-content container">
         
+        <!-- Breadcrumbs -->
         <div style="margin: 2rem 0 1rem; font-size: 0.85rem; color: var(--text-secondary);">
             <a href="../index.html">Home</a> <span style="margin:0 5px;">/</span> Math <span style="margin:0 5px;">/</span> Scientific Calculator
         </div>
@@ -146,42 +156,51 @@
         <section class="glass-panel" style="padding: 2rem;">
             <div class="scientific-wrapper">
                 
+                <!-- Display -->
                 <div class="calc-display">
                     <span id="history" class="history-text"></span>
                     <span id="current" class="current-text">0</span>
                 </div>
 
+                <!-- Keypad -->
                 <div class="keypad">
+                    <!-- Row 1 -->
                     <button class="key clear" onclick="clearAll()">AC</button>
                     <button class="key func" onclick="deleteChar()">DEL</button>
                     <button class="key op" onclick="appendOp('%')">%</button>
                     <button class="key op" onclick="appendOp('/')">÷</button>
 
+                    <!-- Row 2 -->
                     <button class="key func" onclick="appendFunc('sin')">sin</button>
                     <button class="key func" onclick="appendFunc('cos')">cos</button>
                     <button class="key func" onclick="appendFunc('tan')">tan</button>
                     <button class="key op" onclick="appendOp('*')">×</button>
 
+                    <!-- Row 3 -->
                     <button class="key" onclick="appendNum('7')">7</button>
                     <button class="key" onclick="appendNum('8')">8</button>
                     <button class="key" onclick="appendNum('9')">9</button>
                     <button class="key op" onclick="appendOp('-')">-</button>
 
+                    <!-- Row 4 -->
                     <button class="key" onclick="appendNum('4')">4</button>
                     <button class="key" onclick="appendNum('5')">5</button>
                     <button class="key" onclick="appendNum('6')">6</button>
                     <button class="key op" onclick="appendOp('+')">+</button>
 
+                    <!-- Row 5 -->
                     <button class="key" onclick="appendNum('1')">1</button>
                     <button class="key" onclick="appendNum('2')">2</button>
                     <button class="key" onclick="appendNum('3')">3</button>
                     <button class="key func" onclick="appendFunc('sqrt')">√</button>
 
+                    <!-- Row 6 -->
                     <button class="key" onclick="appendNum('0')">0</button>
                     <button class="key" onclick="appendNum('.')">.</button>
                     <button class="key equal" onclick="calculate()">=</button>
                 </div>
 
+                <!-- Discrete Donation (Centered below keypad) -->
                 <div style="text-align: center; margin-top: 1.5rem;">
                     <a href="https://www.buymeacoffee.com" target="_blank" class="hidden-donate">
                         ☕ Value this tool? Support the dev.
@@ -192,17 +211,22 @@
         </section>
     </main>
 
+    <!-- =========================================
+       GLOBAL FOOTER
+       ========================================= -->
     <footer class="site-footer">
         <div class="container">
             <p>
-                &copy; 2024 Calculator Library<br>
+                &copy; 2024 CalcWise<br>
                 Engineered by <a href="https://www.brainboxtoweb.tech/" target="_blank" class="agency-link">Brain Box to Web</a>
             </p>
         </div>
     </footer>
 
+    <!-- Global Logic -->
     <script src="../assets/js/main.js"></script>
 
+    <!-- Scientific Logic -->
     <script>
         const currentEl = document.getElementById('current');
         const historyEl = document.getElementById('history');

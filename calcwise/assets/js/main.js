@@ -3,16 +3,25 @@ document.addEventListener('DOMContentLoaded', () => {
     /* =========================================
        0. ASSET INJECTOR (Fixes Favicon Globally)
        ========================================= */
-    const faviconLink = document.querySelector("link[rel~='icon']");
-    if (faviconLink) {
-        // Check if we are deep inside the 'calculators/' folder
-        const isSubPage = window.location.pathname.includes('/calculators/');
-        const pathPrefix = isSubPage ? '../' : '';
-        
-        // Redirect the broken .ico link to our new .svg
-        faviconLink.href = `${pathPrefix}assets/images/favicon.svg`;
-        faviconLink.type = "image/svg+xml";
+    // 1. Determine path prefix based on folder depth
+    // If we are in '/calculators/', we need to go up one level (../)
+    const isSubPage = window.location.pathname.indexOf('/calculators/') !== -1;
+    const pathPrefix = isSubPage ? '../' : '';
+    const faviconPath = `${pathPrefix}assets/images/favicon.svg`;
+
+    // 2. Find existing link tag or create a new one
+    let faviconLink = document.querySelector("link[rel~='icon']");
+    
+    if (!faviconLink) {
+        faviconLink = document.createElement('link');
+        faviconLink.rel = 'icon';
+        // Add it to the <head> of the document
+        document.head.appendChild(faviconLink);
     }
+
+    // 3. Set the correct path and type
+    faviconLink.href = faviconPath;
+    faviconLink.type = "image/svg+xml";
 
     /* =========================================
        1. THEME ENGINE
@@ -102,8 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // If NO cards exist (we are on a sub-page), redirect to home
                 if (calcCards.length === 0 && term) {
-                    // Check if we are in a subdirectory (like /calculators/)
-                    const isSubDir = window.location.pathname.includes('/calculators/');
+                    const isSubDir = window.location.pathname.indexOf('/calculators/') !== -1;
                     const path = isSubDir ? '../index.html' : 'index.html';
                     window.location.href = `${path}?q=${encodeURIComponent(term)}`;
                 }

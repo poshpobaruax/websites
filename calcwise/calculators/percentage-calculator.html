@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO -->
+    <title>Percentage Calculator - CalcWise</title>
+    <meta name="description" content="Calculate percentages instantly. Find X% of Y, percent change, or what percent one number is of another.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container nav-inner">
+            <a href="../index.html" class="brand-logo">
+                <span style="color: var(--btn-primary);">Calc</span>Wise
+            </a>
+            <div class="search-wrapper">
+                <svg class="search-icon-left" width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input type="text" id="global-search" class="search-input" placeholder="Search tools..." aria-label="Search">
+                <span class="search-shortcut">⌘ K</span>
+            </div>
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                <svg class="icon-moon" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display: none;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg class="icon-sun" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        <div style="margin: 2rem 0 1rem; font-size: 0.85rem; color: var(--text-secondary);">
+            <a href="../index.html">Home</a> <span style="margin:0 5px;">/</span> Math <span style="margin:0 5px;">/</span> Percentage Calculator
+        </div>
+
+        <section class="glass-panel" style="padding: 2rem;">
+            <h1 class="section-title" style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 2rem;">Percentage Calculator</h1>
+            
+            <div class="calc-layout">
+                <!-- INPUTS -->
+                <form id="pct-form">
+                    <div class="form-group">
+                        <label class="form-label">Calculation Type</label>
+                        <select id="calc-mode" class="form-select" onchange="updateMode()">
+                            <option value="1">Percentage Of (What is 15% of 100?)</option>
+                            <option value="2">What Percentage (20 is what % of 80?)</option>
+                            <option value="3">Percentage Change (Increase/Decrease)</option>
+                        </select>
+                    </div>
+
+                    <!-- Labels change based on JS -->
+                    <div class="form-group">
+                        <label class="form-label" id="label-1">Percentage (%)</label>
+                        <input type="number" id="val-1" class="form-input" placeholder="Enter value">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" id="label-2">Total Value</label>
+                        <input type="number" id="val-2" class="form-input" placeholder="Enter value">
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" onclick="calculatePct()" class="btn-calculate">Calculate</button>
+                        <button type="button" onclick="resetCalculator()" class="btn-reset">Reset</button>
+                    </div>
+                </form>
+
+                <!-- RESULTS -->
+                <div class="result-box">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 0.5rem;">Result</span>
+                    <div class="big-amount" id="result-val">0</div>
+                    
+                    <div class="bmi-status" id="result-desc" style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                        Enter values to calculate.
+                    </div>
+
+                    <a href="https://www.buymeacoffee.com" target="_blank" class="hidden-donate">
+                        ☕ Value this tool? Support the dev.
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 CalcWise<br>Engineered by <a href="https://www.brainboxtoweb.tech/" target="_blank" class="agency-link">Brain Box to Web</a></p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+
+    <script>
+        function updateMode() {
+            const mode = document.getElementById('calc-mode').value;
+            const l1 = document.getElementById('label-1');
+            const l2 = document.getElementById('label-2');
+
+            // Reset inputs when switching modes
+            document.getElementById('val-1').value = '';
+            document.getElementById('val-2').value = '';
+            resetVisualsOnly();
+
+            if (mode === '1') {
+                l1.textContent = "Percentage (%)";
+                l2.textContent = "Total Value";
+                document.getElementById('val-1').placeholder = "e.g. 15";
+                document.getElementById('val-2').placeholder = "e.g. 200";
+            } else if (mode === '2') {
+                l1.textContent = "Part Value";
+                l2.textContent = "Total Value";
+                document.getElementById('val-1').placeholder = "e.g. 20";
+                document.getElementById('val-2').placeholder = "e.g. 80";
+            } else {
+                l1.textContent = "Old Value";
+                l2.textContent = "New Value";
+                document.getElementById('val-1').placeholder = "e.g. 50";
+                document.getElementById('val-2').placeholder = "e.g. 75";
+            }
+        }
+
+        function resetVisualsOnly() {
+            document.getElementById('result-val').textContent = "0";
+            document.getElementById('result-desc').textContent = "Enter values to calculate.";
+        }
+
+        function resetCalculator() {
+            const mode = document.getElementById('calc-mode').value;
+            document.getElementById('pct-form').reset();
+            document.getElementById('calc-mode').value = mode; // Keep mode selection
+            resetVisualsOnly();
+        }
+
+        function calculatePct() {
+            const v1 = parseFloat(document.getElementById('val-1').value);
+            const v2 = parseFloat(document.getElementById('val-2').value);
+            const mode = document.getElementById('calc-mode').value;
+
+            if (isNaN(v1) || isNaN(v2)) return;
+
+            let result = 0;
+            let msg = "";
+
+            if (mode === '1') {
+                // X% of Y
+                result = (v1 / 100) * v2;
+                msg = `${v1}% of ${v2} is ${result}`;
+            } else if (mode === '2') {
+                // X is what % of Y
+                if (v2 === 0) { result = 0; msg = "Cannot divide by zero"; }
+                else {
+                    result = (v1 / v2) * 100;
+                    msg = `${v1} is ${result.toFixed(2)}% of ${v2}`;
+                }
+            } else {
+                // Percentage Change
+                if (v1 === 0) { result = 0; msg = "Old value cannot be zero"; }
+                else {
+                    result = ((v2 - v1) / v1) * 100;
+                    const direction = result >= 0 ? "Increase" : "Decrease";
+                    msg = `${Math.abs(result.toFixed(2))}% ${direction}`;
+                }
+            }
+
+            document.getElementById('result-val').textContent = parseFloat(result.toFixed(2));
+            document.getElementById('result-desc').textContent = msg;
+        }
+
+        // Init
+        resetVisualsOnly();
+    </script>
+</body>
+</html>

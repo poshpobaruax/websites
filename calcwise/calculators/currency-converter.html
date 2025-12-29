@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter - CalcWise</title>
+    <meta name="description" content="Convert between major world currencies instantly. USD, EUR, GBP, INR, and more. Free online exchange rate tool.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .result-box { text-align: center; }
+        .swap-btn { background: none; border: 1px solid var(--border-color); color: var(--text-brand); border-radius: 50%; width: 40px; height: 40px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+        .swap-btn:hover { background: var(--bg-input); transform: rotate(180deg); }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav-inner">
+            <a href="../index.html" class="brand-logo"><span style="color: var(--btn-primary);">Calc</span>Wise</a>
+            <div class="search-wrapper">
+                <svg class="search-icon-left" width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                <input type="text" id="global-search" class="search-input" placeholder="Search tools..." aria-label="Search">
+                <span class="search-shortcut">⌘ K</span>
+            </div>
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                <svg class="icon-moon" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display: none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg class="icon-sun" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        <div style="margin: 2rem 0 1rem; font-size: 0.85rem; color: var(--text-secondary);">
+            <a href="../index.html">Home</a> <span style="margin:0 5px;">/</span> Financial <span style="margin:0 5px;">/</span> Currency Converter
+        </div>
+
+        <section class="glass-panel" style="padding: 2rem;">
+            <h1 class="section-title" style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 2rem;">Currency Converter</h1>
+            
+            <div class="calc-layout">
+                <form id="currency-form">
+                    <div class="form-group">
+                        <label class="form-label">Amount</label>
+                        <input type="number" id="amount" class="form-input" placeholder="e.g. 100">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">From</label>
+                        <select id="from-curr" class="form-select">
+                            <option value="USD" selected>USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="INR">INR - Indian Rupee</option>
+                            <option value="JPY">JPY - Japanese Yen</option>
+                            <option value="CAD">CAD - Canadian Dollar</option>
+                            <option value="AUD">AUD - Australian Dollar</option>
+                        </select>
+                    </div>
+
+                    <div style="text-align: center; margin: 1rem 0;">
+                        <button type="button" class="swap-btn" onclick="swapCurrencies()" aria-label="Swap Currencies">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">To</label>
+                        <select id="to-curr" class="form-select">
+                            <option value="EUR" selected>EUR - Euro</option>
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="INR">INR - Indian Rupee</option>
+                            <option value="JPY">JPY - Japanese Yen</option>
+                            <option value="CAD">CAD - Canadian Dollar</option>
+                            <option value="AUD">AUD - Australian Dollar</option>
+                        </select>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" onclick="convertCurrency()" class="btn-calculate">Convert</button>
+                        <button type="button" onclick="resetCalculator()" class="btn-reset">Reset</button>
+                    </div>
+                </form>
+
+                <div class="result-box">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary);">Converted Amount</span>
+                    <div class="big-amount" id="result-val">0.00</div>
+                    <div id="rate-info" style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;"></div>
+                    
+                    <a href="https://www.buymeacoffee.com" target="_blank" class="hidden-donate">☕ Support the dev</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container"><p>&copy; 2024 CalcWise<br>Engineered by <a href="https://www.brainboxtoweb.tech/" target="_blank" class="agency-link">Brain Box to Web</a></p></div>
+    </footer>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Approx Rates (Base USD)
+        const rates = {
+            "USD": 1, "EUR": 0.92, "GBP": 0.79, "INR": 83.5, 
+            "JPY": 155.0, "CAD": 1.36, "AUD": 1.51
+        };
+
+        function resetCalculator() {
+            document.getElementById('currency-form').reset();
+            document.getElementById('result-val').textContent = "0.00";
+            document.getElementById('rate-info').textContent = "";
+        }
+
+        function swapCurrencies() {
+            const from = document.getElementById('from-curr');
+            const to = document.getElementById('to-curr');
+            const temp = from.value;
+            from.value = to.value;
+            to.value = temp;
+            if(document.getElementById('amount').value) convertCurrency();
+        }
+
+        function convertCurrency() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const from = document.getElementById('from-curr').value;
+            const to = document.getElementById('to-curr').value;
+
+            if (isNaN(amount)) return;
+
+            // Convert to USD then to Target
+            const inUSD = amount / rates[from];
+            const result = inUSD * rates[to];
+
+            document.getElementById('result-val').textContent = result.toFixed(2) + " " + to;
+            document.getElementById('rate-info').textContent = `1 ${from} = ${(rates[to]/rates[from]).toFixed(4)} ${to}`;
+        }
+    </script>
+</body>
+</html>

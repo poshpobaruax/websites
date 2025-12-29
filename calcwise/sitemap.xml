@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-   <!-- 1. HOMEPAGE -->
+   <!-- 1. HOMEPAGE (Highest Priority) -->
    <url>
       <loc>https://calcwise.me/index.html</loc>
       <lastmod>2024-05-20</lastmod>
@@ -9,34 +9,89 @@
       <priority>1.0</priority>
    </url>
 
-   <!-- 2. FINANCIAL -->
+   <!-- 2. FINANCIAL CALCULATORS (13 Tools) -->
    <url>
       <loc>https://calcwise.me/calculators/mortgage-calculator.html</loc>
-      <lastmod>2024-05-20</lastmod>
-      <changefreq>monthly</changefreq>
       <priority>0.8</priority>
    </url>
-
    <url>
       <loc>https://calcwise.me/calculators/loan-calculator.html</loc>
-      <lastmod>2024-05-20</lastmod>
-      <changefreq>monthly</changefreq>
       <priority>0.8</priority>
    </url>
-
-   <!-- 3. HEALTH -->
    <url>
-      <loc>https://calcwise.me/calculators/bmi-calculator.html</loc>
-      <lastmod>2024-05-20</lastmod>
-      <changefreq>monthly</changefreq>
+      <loc>https://calcwise.me/calculators/simple-interest-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/compound-interest-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/investment-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/retirement-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/salary-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/tax-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/discount-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/profit-loss-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/currency-converter.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/inflation-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/zakat-calculator.html</loc>
       <priority>0.8</priority>
    </url>
 
-   <!-- 4. MATH -->
+   <!-- 3. MATH & EDUCATION (4 Tools) -->
    <url>
       <loc>https://calcwise.me/calculators/scientific-calculator.html</loc>
-      <lastmod>2024-05-20</lastmod>
-      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/percentage-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/cgpa-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/unit-converter.html</loc>
+      <priority>0.8</priority>
+   </url>
+
+   <!-- 4. HEALTH & LIFE (3 Tools) -->
+   <url>
+      <loc>https://calcwise.me/calculators/bmi-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/age-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/date-difference-calculator.html</loc>
       <priority>0.8</priority>
    </url>
 

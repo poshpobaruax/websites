@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator - CalcWise</title>
+    <meta name="description" content="Calculate your Semester GPA (SGPA) or Cumulative GPA (CGPA) easily. Add unlimited courses and credits.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .course-row { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center; }
+        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px; cursor: pointer; }
+        .btn-sm:hover { border-color: var(--text-brand); }
+        .btn-del { color: #e74c3c; border-color: rgba(231, 76, 60, 0.3); }
+        .btn-del:hover { background: rgba(231, 76, 60, 0.1); border-color: #e74c3c; }
+        @media(max-width:600px){ .course-row { grid-template-columns: 1fr 1fr auto; } .course-name { display: none; } }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav-inner">
+            <a href="../index.html" class="brand-logo"><span style="color: var(--btn-primary);">Calc</span>Wise</a>
+            <div class="search-wrapper">
+                <svg class="search-icon-left" width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                <input type="text" id="global-search" class="search-input" placeholder="Search tools..." aria-label="Search">
+                <span class="search-shortcut">⌘ K</span>
+            </div>
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                <svg class="icon-moon" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display: none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                <svg class="icon-sun" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        <div style="margin: 2rem 0 1rem; font-size: 0.85rem; color: var(--text-secondary);">
+            <a href="../index.html">Home</a> <span style="margin:0 5px;">/</span> Education <span style="margin:0 5px;">/</span> CGPA Calculator
+        </div>
+
+        <section class="glass-panel" style="padding: 2rem;">
+            <h1 class="section-title" style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 2rem;">CGPA Calculator</h1>
+            
+            <div class="calc-layout">
+                <div>
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 0.5rem; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">
+                        <span class="course-name">Course Name</span>
+                        <span>Credit</span>
+                        <span>Grade</span>
+                        <span></span>
+                    </div>
+                    <div id="course-list">
+                        <!-- JS renders rows here -->
+                    </div>
+                    <button type="button" onclick="addCourse()" class="btn-sm" style="margin-top: 1rem;">+ Add Course</button>
+
+                    <div class="btn-group">
+                        <button type="button" onclick="calculateCGPA()" class="btn-calculate">Calculate GPA</button>
+                        <button type="button" onclick="resetCalculator()" class="btn-reset">Reset</button>
+                    </div>
+                </div>
+
+                <div class="result-box">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 0.5rem;">Your GPA</span>
+                    <div class="big-amount" id="gpa-val">0.00</div>
+                    
+                    <div style="width: 100%; margin-top: 1.5rem;">
+                        <div class="result-row">
+                            <span>Total Credits</span>
+                            <span class="result-val" id="total-credits">0</span>
+                        </div>
+                    </div>
+                    <a href="https://www.buymeacoffee.com" target="_blank" class="hidden-donate">☕ Support the dev</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container"><p>&copy; 2024 CalcWise<br>Engineered by <a href="https://www.brainboxtoweb.tech/" target="_blank" class="agency-link">Brain Box to Web</a></p></div>
+    </footer>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        function addCourse() {
+            const div = document.createElement('div');
+            div.className = 'course-row';
+            div.innerHTML = `
+                <input type="text" class="form-input course-name" placeholder="Course Name">
+                <input type="number" class="form-input credit" placeholder="Credit">
+                <select class="form-select grade">
+                    <option value="4.0">A (4.0)</option>
+                    <option value="3.7">A- (3.7)</option>
+                    <option value="3.3">B+ (3.3)</option>
+                    <option value="3.0">B (3.0)</option>
+                    <option value="2.7">B- (2.7)</option>
+                    <option value="2.3">C+ (2.3)</option>
+                    <option value="2.0">C (2.0)</option>
+                    <option value="0.0">F (0.0)</option>
+                </select>
+                <button type="button" class="btn-sm btn-del" onclick="this.parentElement.remove()">✕</button>
+            `;
+            document.getElementById('course-list').appendChild(div);
+        }
+
+        function resetCalculator() {
+            document.getElementById('course-list').innerHTML = '';
+            addCourse(); addCourse(); addCourse(); // Default 3 rows
+            document.getElementById('gpa-val').textContent = "0.00";
+            document.getElementById('total-credits').textContent = "0";
+        }
+
+        function calculateCGPA() {
+            const rows = document.querySelectorAll('.course-row');
+            let totalPoints = 0;
+            let totalCredits = 0;
+
+            rows.forEach(row => {
+                const credit = parseFloat(row.querySelector('.credit').value);
+                const grade = parseFloat(row.querySelector('.grade').value);
+                
+                if (!isNaN(credit) && !isNaN(grade)) {
+                    totalCredits += credit;
+                    totalPoints += (credit * grade);
+                }
+            });
+
+            if (totalCredits === 0) return;
+            const gpa = totalPoints / totalCredits;
+            
+            document.getElementById('gpa-val').textContent = gpa.toFixed(2);
+            document.getElementById('total-credits').textContent = totalCredits;
+        }
+
+        // Init
+        resetCalculator();
+    </script>
+</body>
+</html>

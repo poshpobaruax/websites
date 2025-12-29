@@ -1,6 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     /* =========================================
+       0. ASSET INJECTOR (Fixes Favicon Globally)
+       ========================================= */
+    const faviconLink = document.querySelector("link[rel~='icon']");
+    if (faviconLink) {
+        // Check if we are deep inside the 'calculators/' folder
+        const isSubPage = window.location.pathname.includes('/calculators/');
+        const pathPrefix = isSubPage ? '../' : '';
+        
+        // Redirect the broken .ico link to our new .svg
+        faviconLink.href = `${pathPrefix}assets/images/favicon.svg`;
+        faviconLink.type = "image/svg+xml";
+    }
+
+    /* =========================================
        1. THEME ENGINE
        ========================================= */
     const themeBtn = document.getElementById('theme-toggle');

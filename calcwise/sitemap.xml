@@ -9,7 +9,7 @@
       <priority>1.0</priority>
    </url>
 
-   <!-- 2. FINANCIAL CALCULATORS (13 Tools) -->
+   <!-- 2. FINANCIAL CALCULATORS (15 Tools) -->
    <url>
       <loc>https://calcwise.me/calculators/mortgage-calculator.html</loc>
       <priority>0.8</priority>
@@ -27,11 +27,19 @@
       <priority>0.8</priority>
    </url>
    <url>
+      <loc>https://calcwise.me/calculators/fd-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
       <loc>https://calcwise.me/calculators/investment-calculator.html</loc>
       <priority>0.8</priority>
    </url>
    <url>
       <loc>https://calcwise.me/calculators/retirement-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://calcwise.me/calculators/retirement-savings-calculator.html</loc>
       <priority>0.8</priority>
    </url>
    <url>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO -->
+    <title>Retirement Savings Calculator - CalcWise</title>
+    <meta name="description" content="Calculate how much you need to save monthly to reach your retirement goal. Plan your financial freedom with precision.">
+    
+    <!-- Fonts & Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <style>
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        .result-row:last-of-type { border-bottom: none; }
+        .result-val { color: var(--text-primary); font-weight: 600; }
+        .highlight-val { color: var(--text-brand); font-weight: 700; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container nav-inner">
+            <a href="../index.html" class="brand-logo">
+                <span style="color: var(--btn-primary);">Calc</span>Wise
+            </a>
+            <div class="search-wrapper">
+                <svg class="search-icon-left" width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input type="text" id="global-search" class="search-input" placeholder="Search tools..." aria-label="Search calculators">
+                <span class="search-shortcut">⌘ K</span>
+            </div>
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                <svg class="icon-moon" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display: none;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg class="icon-sun" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content container">
+        <div style="margin: 2rem 0 1rem; font-size: 0.85rem; color: var(--text-secondary);">
+            <a href="../index.html">Home</a> <span style="margin:0 5px;">/</span> Financial <span style="margin:0 5px;">/</span> Retirement Savings
+        </div>
+
+        <section class="glass-panel" style="padding: 2rem;">
+            <h1 class="section-title" style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 2rem;">Retirement Savings Calculator</h1>
+            
+            <div class="calc-layout">
+                <!-- INPUTS -->
+                <form id="rs-form">
+                    <div class="form-group">
+                        <label class="form-label">Currency</label>
+                        <select id="currency-select" class="form-select" onchange="updateCurrency()">
+                            <option value="$">USD ($)</option>
+                            <option value="€">EUR (€)</option>
+                            <option value="£">GBP (£)</option>
+                            <option value="¥">JPY (¥)</option>
+                            <option value="₹">INR (₹)</option>
+                            <option value="C$">CAD (C$)</option>
+                            <option value="A$">AUD (A$)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Retirement Goal Amount</label>
+                        <input type="number" id="target-amount" class="form-input" placeholder="e.g. 1000000">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Current Savings (Optional)</label>
+                        <input type="number" id="current-savings" class="form-input" placeholder="e.g. 50000">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Current Age</label>
+                        <input type="number" id="current-age" class="form-input" placeholder="e.g. 30">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Retirement Age</label>
+                        <input type="number" id="retire-age" class="form-input" placeholder="e.g. 60">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Expected Return Rate (% p.a)</label>
+                        <input type="number" id="rate" class="form-input" placeholder="e.g. 8">
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" onclick="calculateSavings()" class="btn-calculate">Calculate</button>
+                        <button type="button" onclick="resetCalculator()" class="btn-reset">Reset</button>
+                    </div>
+                </form>
+
+                <!-- RESULTS -->
+                <div class="result-box">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 0.5rem;">Monthly Savings Required</span>
+                    <div class="big-amount" id="monthly-needed">$0.00</div>
+                    
+                    <div style="width: 100%; margin-top: 2rem;">
+                        <div class="result-row">
+                            <span>Years to Grow</span>
+                            <span class="result-val" id="years-grow">0</span>
+                        </div>
+                        <div class="result-row">
+                            <span>Projected Growth of Current Savings</span>
+                            <span class="result-val" id="current-growth">$0</span>
+                        </div>
+                        <div class="result-row" style="border-top: 1px solid var(--border-color); margin-top: 0.5rem; padding-top: 0.5rem;">
+                            <span>Remaining Gap to Goal</span>
+                            <span class="result-val highlight-val" id="gap-val">$0</span>
+                        </div>
+                    </div>
+
+                    <a href="https://www.buymeacoffee.com" target="_blank" class="hidden-donate">
+                        ☕ Value this tool? Support the dev.
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 CalcWise<br>Engineered by <a href="https://www.brainboxtoweb.tech/" target="_blank" class="agency-link">Brain Box to Web</a></p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+
+    <script>
+        let currentCurrency = "$";
+
+        function updateCurrency() {
+            currentCurrency = document.getElementById('currency-select').value;
+            const target = document.getElementById('target-amount').value;
+            if (target) calculateSavings();
+            else resetVisualsOnly();
+        }
+
+        function resetVisualsOnly() {
+            document.getElementById('monthly-needed').textContent = currentCurrency + "0.00";
+            document.getElementById('years-grow').textContent = "0";
+            document.getElementById('current-growth').textContent = currentCurrency + "0";
+            document.getElementById('gap-val').textContent = currentCurrency + "0";
+        }
+
+        function resetCalculator() {
+            const idx = document.getElementById('currency-select').selectedIndex;
+            document.getElementById('rs-form').reset();
+            document.getElementById('currency-select').selectedIndex = idx;
+            currentCurrency = document.getElementById('currency-select').value;
+            resetVisualsOnly();
+        }
+
+        function calculateSavings() {
+            const target = parseFloat(document.getElementById('target-amount').value);
+            const currentSav = parseFloat(document.getElementById('current-savings').value) || 0;
+            const curAge = parseFloat(document.getElementById('current-age').value);
+            const retAge = parseFloat(document.getElementById('retire-age').value);
+            const rate = parseFloat(document.getElementById('rate').value);
+
+            if (isNaN(target) || isNaN(curAge) || isNaN(retAge) || isNaN(rate)) return;
+
+            const years = retAge - curAge;
+            if (years <= 0) {
+                alert("Retirement age must be greater than current age.");
+                return;
+            }
+
+            // 1. Calculate Future Value of Current Savings (Lump Sum)
+            // FV = PV * (1 + r)^n
+            const annualRateDecimal = rate / 100;
+            const fvCurrent = currentSav * Math.pow((1 + annualRateDecimal), years);
+
+            // 2. Determine the Gap
+            let gap = target - fvCurrent;
+            if (gap < 0) gap = 0; // Existing savings already meet the goal
+
+            // 3. Calculate Monthly Contribution needed to fill the Gap
+            // PMT = FV * (r/n) / ((1 + r/n)^(nt) - 1)
+            // n = 12 (monthly)
+            const monthlyRate = annualRateDecimal / 12;
+            const totalMonths = years * 12;
+            
+            let monthlyContribution = 0;
+            if (gap > 0 && rate > 0) {
+                monthlyContribution = gap * monthlyRate / (Math.pow((1 + monthlyRate), totalMonths) - 1);
+            } else if (gap > 0 && rate === 0) {
+                monthlyContribution = gap / totalMonths;
+            }
+
+            // Formatting
+            const fmt = (num) => currentCurrency + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            const fmtNoDec = (num) => currentCurrency + num.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
+
+            document.getElementById('monthly-needed').textContent = fmt(monthlyContribution);
+            document.getElementById('years-grow').textContent = years;
+            document.getElementById('current-growth').textContent = fmtNoDec(fvCurrent);
+            document.getElementById('gap-val').textContent = fmtNoDec(gap);
+        }
+        
+        resetVisualsOnly();
+    </script>
+</body>
+</html>

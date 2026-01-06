@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO -->
+    <title>FD Calculator - CalcWise</title>
+    <meta name="description" content="Calculate Fixed Deposit (FD) maturity amount and interest earned. Supports quarterly, monthly, and yearly compounding frequencies.">
+    
+    <!-- Fonts & Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <style>
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        .result-row:last-of-type { border-bottom: none; }
+        .result-val { color: var(--text-primary); font-weight: 600; }
+        .highlight-val { color: var(--text-brand); font-weight: 700; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container nav-inner">
+            <a href="../index.html" class="brand-logo">
+                <span style="color: var(--btn-primary);">Calc</span>Wise
+            </a>
+            <div class="search-wrapper">
+                <svg class="search-icon-left" width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input type="text" id="global-search" class="search-input" placeholder="Search tools..." aria-label="Search calculators">
+                <span class="search-shortcut">⌘ K</span>
+            </div>
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                <svg class="icon-moon" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display: none;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg class="icon-sun" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content container">
+        <div style="margin: 2rem 0 1rem; font-size: 0.85rem; color: var(--text-secondary);">
+            <a href="../index.html">Home</a> <span style="margin:0 5px;">/</span> Financial <span style="margin:0 5px;">/</span> FD Calculator
+        </div>
+
+        <section class="glass-panel" style="padding: 2rem;">
+            <h1 class="section-title" style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 2rem;">Fixed Deposit (FD) Calculator</h1>
+            
+            <div class="calc-layout">
+                <!-- INPUTS -->
+                <form id="fd-form">
+                    <div class="form-group">
+                        <label class="form-label">Currency</label>
+                        <select id="currency-select" class="form-select" onchange="updateCurrency()">
+                            <option value="$">USD ($)</option>
+                            <option value="₹">INR (₹)</option>
+                            <option value="€">EUR (€)</option>
+                            <option value="£">GBP (£)</option>
+                            <option value="¥">JPY (¥)</option>
+                            <option value="C$">CAD (C$)</option>
+                            <option value="A$">AUD (A$)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Investment Amount</label>
+                        <input type="number" id="principal" class="form-input" placeholder="e.g. 100000">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Interest Rate (% p.a)</label>
+                        <input type="number" id="rate" class="form-input" step="0.1" placeholder="e.g. 6.5">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Time Period (Years)</label>
+                        <input type="number" id="time" class="form-input" placeholder="e.g. 5">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Compounding Frequency</label>
+                        <select id="frequency" class="form-select">
+                            <option value="4" selected>Quarterly (Standard)</option>
+                            <option value="12">Monthly</option>
+                            <option value="2">Half-Yearly</option>
+                            <option value="1">Yearly</option>
+                        </select>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" onclick="calculateFD()" class="btn-calculate">Calculate</button>
+                        <button type="button" onclick="resetCalculator()" class="btn-reset">Reset</button>
+                    </div>
+                </form>
+
+                <!-- RESULTS -->
+                <div class="result-box">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 0.5rem;">Maturity Amount</span>
+                    <div class="big-amount" id="total-val">$0.00</div>
+                    
+                    <div style="width: 100%; margin-top: 2rem;">
+                        <div class="result-row">
+                            <span>Invested Amount</span>
+                            <span class="result-val" id="principal-display">$0</span>
+                        </div>
+                        <div class="result-row">
+                            <span>Total Interest Earned</span>
+                            <span class="result-val highlight-val" id="interest-val">$0</span>
+                        </div>
+                    </div>
+
+                    <a href="https://www.buymeacoffee.com" target="_blank" class="hidden-donate">
+                        ☕ Value this tool? Support the dev.
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 CalcWise<br>Engineered by <a href="https://www.brainboxtoweb.tech/" target="_blank" class="agency-link">Brain Box to Web</a></p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+
+    <script>
+        let currentCurrency = "$";
+
+        function updateCurrency() {
+            currentCurrency = document.getElementById('currency-select').value;
+            const p = document.getElementById('principal').value;
+            if (p) calculateFD();
+            else resetVisualsOnly();
+        }
+
+        function resetVisualsOnly() {
+            document.getElementById('total-val').textContent = currentCurrency + "0.00";
+            document.getElementById('principal-display').textContent = currentCurrency + "0";
+            document.getElementById('interest-val').textContent = currentCurrency + "0";
+        }
+
+        function resetCalculator() {
+            const idx = document.getElementById('currency-select').selectedIndex;
+            document.getElementById('fd-form').reset();
+            document.getElementById('currency-select').selectedIndex = idx;
+            currentCurrency = document.getElementById('currency-select').value;
+            resetVisualsOnly();
+        }
+
+        function calculateFD() {
+            const P = parseFloat(document.getElementById('principal').value);
+            const R = parseFloat(document.getElementById('rate').value);
+            const T = parseFloat(document.getElementById('time').value);
+            const n = parseFloat(document.getElementById('frequency').value);
+
+            if (isNaN(P) || isNaN(R) || isNaN(T)) return;
+
+            // FD Formula: A = P(1 + r/n)^(nt)
+            const rDecimal = R / 100;
+            const Amount = P * Math.pow((1 + (rDecimal / n)), (n * T));
+            const Interest = Amount - P;
+
+            const fmt = (num) => currentCurrency + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            const fmtNoDec = (num) => currentCurrency + num.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
+
+            document.getElementById('total-val').textContent = fmt(Amount);
+            document.getElementById('principal-display').textContent = fmtNoDec(P);
+            document.getElementById('interest-val').textContent = fmt(Interest);
+        }
+        
+        resetVisualsOnly();
+    </script>
+</body>
+</html>

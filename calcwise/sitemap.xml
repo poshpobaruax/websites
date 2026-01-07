@@ -9,7 +9,11 @@
       <priority>1.0</priority>
    </url>
 
-   <!-- 2. FINANCIAL CALCULATORS (15 Tools) -->
+   <!-- 2. FINANCIAL CALCULATORS (16 Tools) -->
+   <url>
+      <loc>https://calcwise.me/calculators/sip-calculator.html</loc>
+      <priority>0.8</priority>
+   </url>
    <url>
       <loc>https://calcwise.me/calculators/mortgage-calculator.html</loc>
       <priority>0.8</priority>

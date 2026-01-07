@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO -->
+    <title>SIP Calculator - CalcWise</title>
+    <meta name="description" content="Calculate returns on your Systematic Investment Plan (SIP) or Lumpsum investment. Understand the power of compounding with our detailed guide.">
+    
+    <!-- Fonts & Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <!-- MathJax for formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* Tab Switcher */
+        .mode-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        
+        .tab-btn.active {
+            background: var(--bg-input);
+            color: var(--text-brand);
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        .result-row:last-of-type { border-bottom: none; }
+        .result-val { color: var(--text-primary); font-weight: 600; }
+        .highlight-val { color: #2ecc71; font-weight: 700; }
+
+        /* Article Styling */
+        .content-article {
+            margin-top: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text-primary);
+        }
+
+        .content-article h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-brand);
+            border-left: 4px solid var(--text-brand);
+            padding-left: 1rem;
+        }
+
+        .content-article p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            text-align: justify; /* Perfect alignment */
+        }
+
+        .formula-box {
+            background: var(--bg-input);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin: 2rem 0;
+            overflow-x: auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container nav-inner">
+            <a href="../index.html" class="brand-logo">
+                <span style="color: var(--btn-primary);">Calc</span>Wise
+            </a>
+            <div class="search-wrapper">
+                <svg class="search-icon-left" width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input type="text" id="global-search" class="search-input" placeholder="Search tools..." aria-label="Search calculators">
+                <span class="search-shortcut">⌘ K</span>
+            </div>
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                <svg class="icon-moon" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display: none;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg class="icon-sun" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content container">
+        <div style="margin: 2rem 0 1rem; font-size: 0.85rem; color: var(--text-secondary);">
+            <a href="../index.html">Home</a> <span style="margin:0 5px;">/</span> Financial <span style="margin:0 5px;">/</span> SIP Calculator
+        </div>
+
+        <section class="glass-panel" style="padding: 2rem;">
+            <h1 class="section-title" style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 2rem;">SIP Calculator</h1>
+            
+            <div class="calc-layout">
+                <!-- INPUTS -->
+                <div>
+                    <!-- Tabs -->
+                    <div class="mode-tabs">
+                        <button class="tab-btn active" onclick="switchMode('sip')">Monthly SIP</button>
+                        <button class="tab-btn" onclick="switchMode('lumpsum')">Lumpsum</button>
+                    </div>
+
+                    <form id="sip-form">
+                        <div class="form-group">
+                            <label class="form-label">Currency</label>
+                            <select id="currency-select" class="form-select" onchange="updateCurrency()">
+                                <option value="$">USD ($)</option>
+                                <option value="৳">BDT (৳)</option>
+                                <option value="₹">INR (₹)</option>
+                                <option value="€">EUR (€)</option>
+                                <option value="£">GBP (£)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" id="amount-label">Monthly Investment</label>
+                            <input type="number" id="investment" class="form-input" placeholder="e.g. 5000">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Expected Return Rate (p.a) %</label>
+                            <input type="number" id="rate" class="form-input" placeholder="e.g. 12">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Time Period (Years)</label>
+                            <input type="number" id="years" class="form-input" placeholder="e.g. 10">
+                        </div>
+
+                        <div class="btn-group">
+                            <button type="button" onclick="calculateSIP()" class="btn-calculate">Calculate</button>
+                            <button type="button" onclick="resetCalculator()" class="btn-reset">Reset</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- RESULTS -->
+                <div class="result-box">
+                    <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 0.5rem;">Total Value</span>
+                    <div class="big-amount" id="total-val">$0.00</div>
+                    
+                    <div style="width: 100%; margin-top: 2rem;">
+                        <div class="result-row">
+                            <span>Invested Amount</span>
+                            <span class="result-val" id="invested-val">$0</span>
+                        </div>
+                        <div class="result-row">
+                            <span>Est. Returns</span>
+                            <span class="result-val highlight-val" id="return-val">$0</span>
+                        </div>
+                    </div>
+
+                    <a href="https://www.buymeacoffee.com" target="_blank" class="hidden-donate">
+                        ☕ Value this tool? Support the dev.
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATIONAL CONTENT -->
+        <article class="content-article">
+            <h2>What is a SIP Calculator?</h2>
+            <p>
+                A Systematic Investment Plan (SIP) Calculator is a powerful online tool designed to help you estimate the returns on your mutual fund investments. Unlike a regular savings account where interest is simple, SIPs rely on the power of compounding. This calculator allows you to visualize how small, regular contributions can grow into a substantial corpus over time. Whether you are planning for retirement, a child's education, or buying a home, this tool gives you a clear financial roadmap. It eliminates the guesswork, helping you decide exactly how much you need to save every month to reach your financial goals.
+            </p>
+
+            <h2>How Does it Calculate?</h2>
+            <p>
+                The calculator works on the principle of compound interest, but with a twist. In a standard compound interest scenario, you invest a large sum once. In a SIP, you invest a fixed sum every single month. The calculator takes your monthly input and treats each installment as a fresh investment that earns interest for the remaining duration. As your money grows, the interest earned also starts earning interest. This "interest on interest" effect is what accelerates wealth creation. The calculator aggregates these monthly compounded values to give you a final maturity amount that includes both your principal investment and the wealth gained.
+            </p>
+
+            <h2>The Mathematical Formula</h2>
+            <p>
+                The formula used for calculating the Future Value (FV) of a SIP is derived from the geometric progression series. It assumes that the investment is made at the beginning of each period.
+            </p>
+            
+            <div class="formula-box">
+                $$FV = P \times \frac{(1+i)^n - 1}{i} \times (1+i)$$
+            </div>
+
+            <p>
+                Where:<br>
+                <strong>P</strong> = Monthly SIP Amount<br>
+                <strong>i</strong> = Periodic Interest Rate (Annual Rate / 12 / 100)<br>
+                <strong>n</strong> = Total Number of Payments (Years × 12)<br>
+                <br>
+                For example, if you invest $5,000 monthly at an annual return of 12% for 10 years, 'i' would be 0.01 (1% per month) and 'n' would be 120 months. The formula performs the complex iteration instantly to show you the final result.
+            </p>
+        </article>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 CalcWise<br>Engineered by <a href="https://www.brainboxtoweb.tech/" target="_blank" class="agency-link">Brain Box to Web</a></p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+
+    <script>
+        let currentCurrency = "$";
+        let calculationMode = "sip"; // 'sip' or 'lumpsum'
+
+        function updateCurrency() {
+            currentCurrency = document.getElementById('currency-select').value;
+            const val = document.getElementById('investment').value;
+            if (val) calculateSIP();
+            else resetVisualsOnly();
+        }
+
+        function switchMode(mode) {
+            calculationMode = mode;
+            const btns = document.querySelectorAll('.tab-btn');
+            const label = document.getElementById('amount-label');
+            
+            if (mode === 'sip') {
+                btns[0].classList.add('active');
+                btns[1].classList.remove('active');
+                label.textContent = "Monthly Investment";
+            } else {
+                btns[0].classList.remove('active');
+                btns[1].classList.add('active');
+                label.textContent = "Total Investment Amount";
+            }
+            
+            // Recalculate if inputs exist
+            if(document.getElementById('investment').value) calculateSIP();
+        }
+
+        function resetVisualsOnly() {
+            document.getElementById('total-val').textContent = currentCurrency + "0.00";
+            document.getElementById('invested-val').textContent = currentCurrency + "0";
+            document.getElementById('return-val').textContent = currentCurrency + "0";
+        }
+
+        function resetCalculator() {
+            const idx = document.getElementById('currency-select').selectedIndex;
+            document.getElementById('sip-form').reset();
+            document.getElementById('currency-select').selectedIndex = idx;
+            currentCurrency = document.getElementById('currency-select').value;
+            resetVisualsOnly();
+        }
+
+        function calculateSIP() {
+            const P = parseFloat(document.getElementById('investment').value);
+            const r = parseFloat(document.getElementById('rate').value);
+            const t = parseFloat(document.getElementById('years').value);
+
+            if (isNaN(P) || isNaN(r) || isNaN(t)) return;
+
+            let FV = 0;
+            let invested = 0;
+
+            if (calculationMode === 'sip') {
+                // Monthly SIP Formula
+                const n = t * 12; 
+                const i = r / 12 / 100; 
+                FV = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+                invested = P * n;
+            } else {
+                // Lumpsum (Compound Interest) Formula
+                // A = P(1 + r/100)^t
+                // Assuming annual compounding for lumpsum mutual funds typically
+                FV = P * Math.pow((1 + r/100), t);
+                invested = P;
+            }
+
+            const returns = FV - invested;
+
+            const fmt = (num) => currentCurrency + num.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
+
+            document.getElementById('total-val').textContent = fmt(FV);
+            document.getElementById('invested-val').textContent = fmt(invested);
+            document.getElementById('return-val').textContent = fmt(returns);
+        }
+        
+        resetVisualsOnly();
+    </script>
+</body>
+</html>
